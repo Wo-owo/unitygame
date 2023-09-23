@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83cf5e322cea2649bcb9717071cab56, type: 3}
+  m_Name: ItemDataList_SO
+  m_EditorClassIdentifier: 
+  itemDetailsList:
+  - itemID: 1001
+    itemName: "\u9EC4\u9C7C"
+    itemIcon: {fileID: 21300000, guid: a94f97806ef1a4a20ad529791fc938a5, type: 3}
+    itemOnWorldSprite: {fileID: 21300000, guid: e457a28d7c05742a6bcb044458883809, type: 3}
+    itemType: 0
+    itemDescription: "\u4E00\u6761\u9EC4\u8272\u7684\u9C7C"
+    itemPrice: 10
+    sellPercentage: 0.5
+    itemLucky: 0
+    itemDurability: 0
+    itemWeight: 1.5
+  - itemID: 1002
+    itemName: "\u2018\u2019\u2018"
+    itemIcon: {fileID: 21300000, guid: 9930d861d3ccf4ddc87536ae85a56425, type: 3}
+    itemOnWorldSprite: {fileID: 0}
+    itemType: 0
+    itemDescription: "\u65E0"
+    itemPrice: 999
+    sellPercentage: 1
+    itemLucky: 0
+    itemDurability: 0
+    itemWeight: 0
+  - itemID: 1003
+    itemName: 1
+    itemIcon: {fileID: 21300000, guid: 13fd782ac3661413abe57fc16343e499, type: 3}
+    itemOnWorldSprite: {fileID: 0}
+    itemType: 0
+    itemDescription: 123456
+    itemPrice: 8
+    sellPercentage: 1
+    itemLucky: 2
+    itemDurability: 0
+    itemWeight: 1
+  - itemID: 1004
+    itemName: 2
+    itemIcon: {fileID: 21300000, guid: 709947d08509b408db26e4136a0232ee, type: 3}
+    itemOnWorldSprite: {fileID: 0}
+    itemType: 0
+    itemDescription: 123456
+    itemPrice: 9
+    sellPercentage: 1
+    itemLucky: 1
+    itemDurability: 0
+    itemWeight: 2
