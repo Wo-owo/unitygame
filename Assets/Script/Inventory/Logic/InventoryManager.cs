@@ -67,6 +67,24 @@ using UnityEngine;
         //更新UI
         EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, playerBag.itemList);
     }
+    /// <summary>
+    /// 通过物品ID添加物品
+    /// </summary>
+    /// <param name="itemId"></param>
+    /// <param name="itemCount"></param>
+    /// <param name="toDestory"></param>
+    public void AddItem(int itemId, int itemCount, bool toDestory)
+    {
+        //是否已经有该物品
+        var index = GetItemIndexInBag(itemId);
+
+        AddItemAtIndex(itemId, index, itemCount);
+
+        //Debug.Log(GetItemDetails(item.itemID).itemID + "Name: " + GetItemDetails(item.itemID).itemName);
+
+        //更新UI
+        EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, playerBag.itemList);
+    }
 
 
     /// <summary>
