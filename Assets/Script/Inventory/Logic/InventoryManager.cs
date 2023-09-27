@@ -33,36 +33,18 @@ using UnityEngine;
     /// </summary>
     /// <param name="item"></param>
     /// <param name="toDestory">是否要销毁物品</param>
-    // public void AddItem(Item item, bool toDestory)
-    // {
-    //     //是否已经有该物品
-    //     var index = GetItemIndexInBag(item.itemID);
-
-    //     AddItemAtIndex(item.itemID, index, 1);
-
-    //     //Debug.Log(GetItemDetails(item.itemID).itemID + "Name: " + GetItemDetails(item.itemID).itemName);
-    //     if (toDestory)
-    //     {
-    //         Destroy(item.gameObject);
-    //     }
-
-    //     //更新UI
-    //    EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, playerBag.itemList);
-    // }
-     /// <summary>
-    /// 通过物品ID添加物品
-    /// </summary>
-    /// <param name="itemId"></param>
-    /// <param name="itemCount"></param>
-    /// <param name="toDestory"></param>
-    public void AddItem(int itemId, int itemCount,bool toDestory)
+    public void AddItem(Item item, bool toDestory)
     {
         //是否已经有该物品
-        var index = GetItemIndexInBag(itemId);
+        var index = GetItemIndexInBag(item.itemID);
 
-        AddItemAtIndex(itemId, index, itemCount);
+        AddItemAtIndex(item.itemID, index, 1);
 
         //Debug.Log(GetItemDetails(item.itemID).itemID + "Name: " + GetItemDetails(item.itemID).itemName);
+        if (toDestory)
+        {
+            Destroy(item.gameObject);
+        }
 
         //更新UI
         EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, playerBag.itemList);

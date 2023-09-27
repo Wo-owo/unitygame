@@ -12,6 +12,15 @@ public class MiniGameManager : Singleton<MiniGameManager>
     public float Catch_Move_Speed;
     public float time;
     public float DescTimeMax;
+    public void StartGame()
+    {
+        Fish.enabled = true;
+        CatchFish.enabled = true;
+        this.enabled = true;
+        time = 0;
+        Fish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
+        CatchFish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
+    }
     private void Update()
     {
         time += Time.deltaTime;
@@ -28,16 +37,23 @@ public class MiniGameManager : Singleton<MiniGameManager>
             Fish.enabled = false;
             CatchFish.enabled = false;
             this.enabled = false;
-            Debug.Log("成功");
+            if (CatchFish.LeaveCount > 0)
+            {
+                Debug.Log("成功");
+            }
+            else
+            {
+                Debug.Log("完美");
+            }
             return;
         }
         if (Input.GetKey(Catch_MoveUP_Key))
         {
-            CatchFish.transform.Translate(Vector2.up * Time.deltaTime * Catch_Move_Speed);
+            CatchFish.transform.Translate(Catch_Move_Speed * Time.deltaTime * Vector2.up);
         }
         else
         {
-            CatchFish.transform.Translate(-Vector2.up * Time.deltaTime * Catch_Move_Speed);
+            CatchFish.transform.Translate(Catch_Move_Speed * Time.deltaTime * -Vector2.up);
         }
     }
     public void SetProgressBarValue(float value)
