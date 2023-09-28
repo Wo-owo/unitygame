@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR;
+using static UnityEditor.Progress;
 
 public class MiniGameManager : Singleton<MiniGameManager>
 {
@@ -12,39 +15,42 @@ public class MiniGameManager : Singleton<MiniGameManager>
     public float Catch_Move_Speed;
     public float time;
     public float DescTimeMax;
-    public void StartGame()
+    public int fishID;
+    public bool IsStart = false;
+    //TODO暂时通过button按钮调用默认1001物品
+    public void StartGame(int ID)
     {
-        Fish.enabled = true;
-        CatchFish.enabled = true;
-        this.enabled = true;
+        IsStart = true;
+        fishID = ID;
         time = 0;
         mProgressBar.Size = 0;
+        CatchFish.LeaveCount = 0;
         Fish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
         CatchFish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
     }
     private void Update()
     {
+        if (!IsStart)
+            return;
         time += Time.deltaTime;
         if (time > DescTimeMax && mProgressBar.Size < 1)
         {
-            Fish.enabled = false;
-            CatchFish.enabled = false;
-            this.enabled = false;
             Debug.Log("失败");
+            IsStart = false;
             return;
         }
         if (mProgressBar.Size >= 1)
         {
-            Fish.enabled = false;
-            CatchFish.enabled = false;
-            this.enabled = false;
+            IsStart = false;
             if (CatchFish.LeaveCount > 0)
             {
                 Debug.Log("成功");
+                InventoryManager.Instance.AddItem(fishID, 1);//TODO暂时直接调单例往背包塞
             }
             else
             {
                 Debug.Log("完美");
+                InventoryManager.Instance.AddItem(fishID, 1008611);//TODO暂时直接调单例往背包塞
             }
             return;
         }

@@ -541,6 +541,8 @@ MonoBehaviour:
   luck: 0
   allFish: []
   fishPrefab: {fileID: 0}
+  fishingUI: {fileID: 0}
+  itemDataList_SO: {fileID: 0}
 --- !u!1 &1422882753
 GameObject:
   m_ObjectHideFlags: 0

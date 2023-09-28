@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,6 +33,8 @@ public class CatchFish : MonoBehaviour
     }
     void Update()
     {
+        if (!MiniGameManager.Instance.IsStart)
+            return;
         if (Fish == null)
         {
             FishChanged?.Invoke(CathcFish_DecValue);

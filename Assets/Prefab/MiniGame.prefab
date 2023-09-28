@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82ce1e59581b646b6aa7550c4f1788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 0
+  MoveSpeed: 150
 --- !u!50 &9024830360315660936
 Rigidbody2D:
   serializedVersion: 4
@@ -675,11 +675,11 @@ MonoBehaviour:
       - m_Target: {fileID: 9024830360511157180}
         m_TargetAssemblyTypeName: MiniGameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1001
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -742,6 +742,8 @@ MonoBehaviour:
   Catch_Move_Speed: 30
   time: 0
   DescTimeMax: 20
+  fishID: 0
+  IsStart: 0
 --- !u!1 &9024830360997669456
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,7 +55,7 @@ using UnityEngine;
     /// <param name="itemId"></param>
     /// <param name="itemCount"></param>
     /// <param name="toDestory"></param>
-    public void AddItem(int itemId, int itemCount, bool toDestory)
+    public void AddItem(int itemId, int itemCount)
     {
         //是否已经有该物品
         var index = GetItemIndexInBag(itemId);

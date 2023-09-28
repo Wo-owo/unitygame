@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
                     //生成这条鱼
                     hasSpawned = true;
                     ItemDetails randomItem = id_so;
-                    InventoryManager.Instance.AddItem(randomItem.itemID,1,false);
+                    InventoryManager.Instance.AddItem(randomItem.itemID,1);
                 }
                 break;
             }

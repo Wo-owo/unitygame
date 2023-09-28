@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList:
   - itemID: 1001
-    itemAmount: 1
+    itemAmount: 2
   - itemID: 1002
     itemAmount: 1
   - itemID: 0
