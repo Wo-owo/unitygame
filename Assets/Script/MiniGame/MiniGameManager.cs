@@ -18,6 +18,7 @@ public class MiniGameManager : Singleton<MiniGameManager>
         CatchFish.enabled = true;
         this.enabled = true;
         time = 0;
+        mProgressBar.Size = 0;
         Fish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
         CatchFish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
     }

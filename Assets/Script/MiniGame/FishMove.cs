@@ -6,6 +6,7 @@ public class FishMove : MonoBehaviour
 {
     float yMax;
     float yMin;
+    public float MoveSpeed;
     private void Start()
     {
         MiniGameManager.Instance.Fish = this;
@@ -17,11 +18,7 @@ public class FishMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector2(0, Random.Range(-100, 100)) * Time.deltaTime);
-        if (transform.localPosition.y > 150)
-        {
-            transform.localPosition = new Vector2(0, 150);
-        }
+        transform.Translate(new Vector2(0, Random.Range(-MoveSpeed, MoveSpeed)) * Time.deltaTime);
         if (transform.localPosition.y < yMin)
         {
             transform.localPosition = new Vector2(0, yMin);
