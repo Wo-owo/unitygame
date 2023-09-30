@@ -15,12 +15,12 @@ public class InventoryManager : Singleton<InventoryManager>
     private void Start()
     {
         EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, playerBag.itemList);
-        //var sprite = Resources.LoadAll<Sprite>($"Sprite/Fish/珍惜鱼");
-        //for (int i = 1; i <= 10; i++)
+        //var sprite = Resources.LoadAll<Sprite>($"Sprite/Fish/普通鱼");
+        //for (int i = 0; i < sprite.Length; i++)
         //{
         //    var item = new ItemDetails();
         //    item.itemName = sprite[i].name;
-        //    item.itemID = 1005 + i;
+        //    item.itemID = 1016 + i;
         //    item.itemWeight = 1.5f;
         //    item.itemIcon = sprite[i];
         //    item.itemOnWorldSprite = sprite[i];
