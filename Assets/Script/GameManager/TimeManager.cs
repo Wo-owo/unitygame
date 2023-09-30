@@ -1,29 +1,42 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public GameTimeDate Game_Time = new GameTimeDate(1);
+    public GameTimeDate Game_Time = new GameTimeDate();
+    public int TimeTimingUnit;
+    float _timeTiming;
     // Update is called once per frame
     void Update()
     {
+        _timeTiming += Time.deltaTime;
+        if (_timeTiming >= TimeTimingUnit)
+        {
+            Game_Time.Minute++;
+            _timeTiming = 0;
+        }
     }
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 0, 200, 30), Game_Time.ToString());
     }
 }
+[Serializable]
 public class GameTimeDate
 {
+    [SerializeField]
     private int minute;
+    [SerializeField]
     private int hour;
+    [SerializeField]
     private int day;
+    [SerializeField]
     private int month;
+    [SerializeField]
     private int year;
-    public int TimeTimingUnit;
-    private Task _task;
 
     public int Minute
     {
@@ -80,39 +93,14 @@ public class GameTimeDate
             year = value;
         }
     }
-    public void StopTiming()
-    {
-        _task.Wait();
-    }
-    /// <summary>
-    /// </summary>
-    /// <param name="timeTimingUnit">计时单位间隔</param>
-    public GameTimeDate(int timeTimingUnit)
+
+    public GameTimeDate()
     {
         day = 1;
         month = 1;
-        TimeTimingUnit = timeTimingUnit;
-        _task = new Task(Timing);
-        _task.Start();
-    }
-    public async void Timing()
-    {
-        while (true)
-        {
-            await Task.Delay(TimeTimingUnit);
-            Minute += 1;
-        }
-    }
-    public void TransformTime()
-    {
-        Minute += 1;
     }
     public override string ToString()
     {
         return $"{Year}年 {Month}月 {Day}日 {Hour}:{Minute}";
-    }
-    ~GameTimeDate()
-    {
-        _task.Dispose();
     }
 }
