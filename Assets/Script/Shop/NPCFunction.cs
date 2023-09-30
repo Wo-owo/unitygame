@@ -18,9 +18,12 @@ public class NPCFunction : MonoBehaviour
 
     public void OpenShop()
     {
-        isOpen = true;
-        EventHandler.CallBaseBagOpenEvent(SlotType.Shop, shopData);
-        //EventHandler.CallUpdateGameStateEvent(GameState.Pause);
+        if (!isOpen)
+        {
+            isOpen = true;
+            EventHandler.CallBaseBagOpenEvent(SlotType.Shop, shopData);
+            //EventHandler.CallUpdateGameStateEvent(GameState.Pause);
+        }
     }
 
     public void CloseShop()

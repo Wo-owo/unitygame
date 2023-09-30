@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int luck ;//幸运值
+    public int luck;//幸运值
     //public int 
 
     //public List<Fishes> goodfish = new List<Fishes>();//好的鱼
@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
         else
         {
-            if(instance != this)
+            if (instance != this)
             {
                 Destroy(gameObject);
             }
@@ -40,51 +40,60 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
+    Coroutine MiniGame=null;
     /// <summary>
     /// 点击钓鱼
     /// </summary>
-    public void ClickToFishes(){
-       
-        var hasSpawned = false;
-        foreach (var id_so in itemDataList_SO.itemDetailsList){
-            if(luck>id_so.itemLucky){
-                int a = 0;
-                //投骰子判定
-                a=DropDice(a,0,luck);
-                //如果数值大于基础幸运值
-                if(a>luck){
-                    //生成这条鱼
-                    hasSpawned = true;
-                    ItemDetails randomItem = id_so;
-                    InventoryManager.Instance.AddItem(randomItem.itemID,1);
-                }
-                break;
-            }
+    public void ClickToFishes()
+    {
+        if(MiniGame == null )
+        {
+            MiniGame = StartCoroutine(Fishing(1001));
         }
+        //var hasSpawned = false;
+        //foreach (var id_so in itemDataList_SO.itemDetailsList)
+        //{
+        //    if (luck > id_so.itemLucky)
+        //    {
+        //        int a = 0;
+        //        //投骰子判定
+        //        a = DropDice(a, 0, luck);
+        //        //如果数值大于基础幸运值
+        //        if (a > luck)
+        //        {
+        //            //生成这条鱼
+        //            hasSpawned = true;
+        //            ItemDetails randomItem = id_so;
+        //            InventoryManager.Instance.AddItem(randomItem.itemID, 1);
+        //        }
+        //        break;
+        //    }
+        //}
         //如果上述未生成鱼,则随机给一条低于幸运值的鱼
-        if(!hasSpawned){
-            // // int randomIndex = Random.Range(0, luck);//用幸运值做列表上限
-            // ItemDetails randomItem = itemDataList_SO.itemDetailsList[randomIndex];
-            // InventoryManager.Instance.AddItem(randomItem.itemID,1,false);
-        }
+        //if (!hasSpawned)
+        //{
+        //    // // int randomIndex = Random.Range(0, luck);//用幸运值做列表上限
+        //    // ItemDetails randomItem = itemDataList_SO.itemDetailsList[randomIndex];
+        //    // InventoryManager.Instance.AddItem(randomItem.itemID,1,false);
+        //}
 
-         // 从所有的物品中随机选择一条的算法
+        // 从所有的物品中随机选择一条的算法
         // if (itemDataList_SO != null && itemDataList_SO.itemDetailsList.Count > 0)
         // {
         //     //int randomIndex = Random.Range(0, luck);//用幸运值做列表上限
         //     int randomIndex = Random.Range(0, itemDataList_SO.itemDetailsList.Count);
         //     ItemDetails randomItem = itemDataList_SO.itemDetailsList[randomIndex];
 
-            
+
         //     InventoryManager.Instance.AddItem(randomItem.itemID,1,false);
         // }
 
@@ -93,29 +102,47 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 投骰子
     /// </summary>
-    private int DropDice(int _a,int _min,int _max){
-        _a = Random.Range(_min,_max);
+    private int DropDice(int _a, int _min, int _max)
+    {
+        _a = Random.Range(_min, _max);
         return _a;
     }
 
     /// <summary>
     /// 时间流逝
     /// </summary>
-    private void TimeTick(){
-
+    private void TimeTick()
+    {
+        
     }
 
     /// <summary>
     /// 幸运值计算
     /// </summary>
-    void CountLucky(){
-         
+    void CountLucky()
+    {
+
     }
 
+    MiniResultType MiniResult = MiniResultType.异常;
     /// <summary>
     /// 钓鱼的小游戏
     /// </summary>
-    void Fishing(){
-
+    IEnumerator Fishing(int Id)
+    {
+        yield return null;
+        MiniGameManager.Instance.StartGame(Id);
+        enabled = false;
+        while (MiniGameManager.Instance.IsStart)
+        {
+            yield return null;
+        }
+        MiniResult = MiniGameManager.Instance.MiniResult;
+        if (MiniResult != MiniResultType.异常)
+        {
+            Debug.Log("钓鱼完成,钓鱼结果:"+MiniResult.ToString());
+        }
+        enabled = true;
+        MiniGame = null;
     }
 }

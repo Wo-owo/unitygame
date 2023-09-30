@@ -6,6 +6,13 @@ using UnityEngine.Events;
 using UnityEngine.XR;
 using static UnityEditor.Progress;
 
+public enum MiniResultType
+{
+    异常 = -1,
+    普通成功,
+    完美钓起,
+    钓鱼失败
+}
 public class MiniGameManager : Singleton<MiniGameManager>
 {
     public ProgressBar mProgressBar;
@@ -17,7 +24,14 @@ public class MiniGameManager : Singleton<MiniGameManager>
     public float DescTimeMax;
     public int fishID;
     public bool IsStart = false;
+    public MiniResultType MiniResult;
+    private Canvas canvas;
     //TODO暂时通过button按钮调用默认1001物品
+    protected override void Awake()
+    {
+        base.Awake();
+        canvas = transform.parent.GetComponent<Canvas>();
+    }
     public void StartGame(int ID)
     {
         IsStart = true;
@@ -27,7 +41,9 @@ public class MiniGameManager : Singleton<MiniGameManager>
         CatchFish.LeaveCount = 0;
         Fish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
         CatchFish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
+        canvas.targetDisplay = 0;
     }
+
     private void Update()
     {
         if (!IsStart)
@@ -35,7 +51,8 @@ public class MiniGameManager : Singleton<MiniGameManager>
         time += Time.deltaTime;
         if (time > DescTimeMax && mProgressBar.Size < 1)
         {
-            Debug.Log("失败");
+            canvas.targetDisplay = 1;
+            MiniResult = MiniResultType.钓鱼失败;
             IsStart = false;
             return;
         }
@@ -44,13 +61,15 @@ public class MiniGameManager : Singleton<MiniGameManager>
             IsStart = false;
             if (CatchFish.LeaveCount > 0)
             {
-                Debug.Log("成功");
+                canvas.targetDisplay = 1;
+                MiniResult = MiniResultType.普通成功;
                 InventoryManager.Instance.AddItem(fishID, 1);//TODO暂时直接调单例往背包塞
             }
             else
             {
-                Debug.Log("完美");
-                InventoryManager.Instance.AddItem(fishID, 1008611);//TODO暂时直接调单例往背包塞
+                canvas.targetDisplay = 1;
+                MiniResult = MiniResultType.完美钓起;
+                InventoryManager.Instance.AddItem(fishID, 2);//TODO暂时直接调单例往背包塞
             }
             return;
         }
