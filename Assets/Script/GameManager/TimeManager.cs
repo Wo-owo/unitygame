@@ -3,12 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : Singleton<TimeManager>
 {
     public GameTimeDate Game_Time = new GameTimeDate();
-    public int TimeTimingUnit;
+    public float TimeTimingUnit;
     float _timeTiming;
+    public readonly Dictionary<int, UnityAction> Hour_Event = new();
+    /// <summary>
+    /// 添加指定时间[0,24)小时区间发生事件
+    /// </summary>
+    /// <param name="hour">指定时间</param>
+    /// <param name="action">指定发生的方法委托</param>
+    public void TakeInHourEvent(int hour, UnityAction action)
+    {
+        if(Hour_Event.ContainsKey(hour))
+        {
+            Hour_Event[hour] += action;
+            return;
+        }
+        Hour_Event.Add(hour, action);
+    }
+    public void DeleteHourEvent(int hour, UnityAction action)
+    {
+        if (Hour_Event.ContainsKey(hour))
+        {
+            Hour_Event[hour] -= action;
+            return;
+        }
+    }
+    private void Start()
+    {
+        Game_Time.HourChanged += (h) =>
+        {
+            Hour_Event[h]?.Invoke();
+        };//监听小时改变事件
+        var action = new UnityAction(() => Debug.Log("该睡觉了"));
+        TakeInHourEvent(1, action);//添加20点睡觉
+        DeleteHourEvent(1, action);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -60,6 +94,7 @@ public class GameTimeDate
                 hour = 0;
                 Day++;
             }
+            HourChanged?.Invoke(hour);
         }
     }
     public int Day
@@ -93,7 +128,7 @@ public class GameTimeDate
             year = value;
         }
     }
-
+    public event UnityAction<int> HourChanged;
     public GameTimeDate()
     {
         day = 1;
