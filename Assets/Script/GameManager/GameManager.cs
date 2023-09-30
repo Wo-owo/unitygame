@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// æ¸¸æˆæ§åˆ¶å™¨
+/// ÓÎÏ·¿ØÖÆÆ÷
 /// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int luck;//å¹¸è¿å€¼
+    public int luck;//ĞÒÔËÖµ
     //public int 
 
-    //public List<Fishes> goodfish = new List<Fishes>();//å¥½çš„é±¼
-    //public List<Fishes> badfish = new List<Fishes>();//å·®çš„é±¼
+    //public List<Fishes> goodfish = new List<Fishes>();//ºÃµÄÓã
+    //public List<Fishes> badfish = new List<Fishes>();//²îµÄÓã
     public List<ItemDetails> allFish = new List<ItemDetails>();
-    public GameObject fishPrefab;//é±¼çš„é¢„åˆ¶ä½“
-    public GameObject fishingUI;//é’“é±¼å¾—å°æ¸¸æˆ
+    public GameObject fishPrefab;//ÓãµÄÔ¤ÖÆÌå
+    public GameObject fishingUI;//µöÓãµÃĞ¡ÓÎÏ·
 
-    public ItemDataList_SO itemDataList_SO;//ç‰©å“æ•°æ®
+    public ItemDataList_SO itemDataList_SO;//ÎïÆ·Êı¾İ
 
-
+    private float sleepTime;//Ë¯¾õÊ±¼ä
+    
+    public SlotUI fishingRod;//Óã¸ÍÀ¸
+    public SlotUI bait;//Óã¶ü
 
     private void Awake()
     {
@@ -51,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     Coroutine MiniGame=null;
     /// <summary>
-    /// ç‚¹å‡»é’“é±¼
+    /// µã»÷µöÓã
     /// </summary>
     public void ClickToFishes()
     {
@@ -59,48 +62,54 @@ public class GameManager : MonoBehaviour
         {
             MiniGame = StartCoroutine(Fishing(1001));
         }
-        //var hasSpawned = false;
-        //foreach (var id_so in itemDataList_SO.itemDetailsList)
-        //{
-        //    if (luck > id_so.itemLucky)
-        //    {
-        //        int a = 0;
-        //        //æŠ•éª°å­åˆ¤å®š
-        //        a = DropDice(a, 0, luck);
-        //        //å¦‚æœæ•°å€¼å¤§äºåŸºç¡€å¹¸è¿å€¼
-        //        if (a > luck)
-        //        {
-        //            //ç”Ÿæˆè¿™æ¡é±¼
-        //            hasSpawned = true;
-        //            ItemDetails randomItem = id_so;
-        //            InventoryManager.Instance.AddItem(randomItem.itemID, 1);
-        //        }
-        //        break;
-        //    }
-        //}
-        //å¦‚æœä¸Šè¿°æœªç”Ÿæˆé±¼,åˆ™éšæœºç»™ä¸€æ¡ä½äºå¹¸è¿å€¼çš„é±¼
-        //if (!hasSpawned)
-        //{
-        //    // // int randomIndex = Random.Range(0, luck);//ç”¨å¹¸è¿å€¼åšåˆ—è¡¨ä¸Šé™
-        //    // ItemDetails randomItem = itemDataList_SO.itemDetailsList[randomIndex];
-        //    // InventoryManager.Instance.AddItem(randomItem.itemID,1,false);
-        //}
-
-        // ä»æ‰€æœ‰çš„ç‰©å“ä¸­éšæœºé€‰æ‹©ä¸€æ¡çš„ç®—æ³•
-        // if (itemDataList_SO != null && itemDataList_SO.itemDetailsList.Count > 0)
-        // {
-        //     //int randomIndex = Random.Range(0, luck);//ç”¨å¹¸è¿å€¼åšåˆ—è¡¨ä¸Šé™
-        //     int randomIndex = Random.Range(0, itemDataList_SO.itemDetailsList.Count);
-        //     ItemDetails randomItem = itemDataList_SO.itemDetailsList[randomIndex];
-
-
-        //     InventoryManager.Instance.AddItem(randomItem.itemID,1,false);
-        // }
-
     }
 
     /// <summary>
-    /// æŠ•éª°å­
+    /// ½«ÓãÌí¼ÓÈë±³°ü
+    /// </summary>
+    public ItemDetails AddFishes(MiniResultType _result){
+        Debug.Log("³éÈ¡Óã");
+        int totalLuck = 0;//È¨ÖØ
+        ItemType _type = new();//ÀàĞÍ
+        switch (_result)
+        {
+            case MiniResultType.ÆÕÍ¨³É¹¦:
+                _type = ItemType.smallFish;
+                break;
+            case MiniResultType.ÍêÃÀµöÆğ:
+                _type = ItemType.bigFish;
+                break;
+            default:
+                Debug.Log("ÆäËûÇé¿ö");
+                break;
+        }
+
+
+        foreach(var _fish in allFish){
+            if(_fish.itemLucky<luck && _fish.itemType==_type){
+                totalLuck+=_fish.itemLucky;
+            }
+        }
+        int randomValue = Random.Range(0,totalLuck);
+        foreach(var _fish in allFish){
+            if(_fish.itemLucky<luck&&_fish.itemType==_type){
+                randomValue-=_fish.itemLucky;
+                if(randomValue<=0){
+                    Debug.Log("µöÉÏÁËid:"+_fish.itemID+"µÄ"+_fish.itemName);
+                    _fish.itemWeight+=Random.Range(-10,11);//Ëæ»úÖØÁ¿
+
+
+                    return _fish;//·µ»ØÓã
+                    
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Í¶÷»×Ó
     /// </summary>
     private int DropDice(int _a, int _min, int _max)
     {
@@ -109,24 +118,21 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// æ—¶é—´æµé€
+    /// ĞÒÔËÖµ¼ÆËã
     /// </summary>
-    private void TimeTick()
+    public void CountLucky()
     {
-        
+        if(bait.itemDetails !=null){
+            luck += fishingRod.itemDetails.itemLucky + bait.itemDetails.itemLucky;
+        }
+        else if(bait.itemDetails==null){
+            luck = fishingRod.itemDetails.itemLucky ;
+        }
     }
 
+    MiniResultType MiniResult = MiniResultType.Òì³£;
     /// <summary>
-    /// å¹¸è¿å€¼è®¡ç®—
-    /// </summary>
-    void CountLucky()
-    {
-
-    }
-
-    MiniResultType MiniResult = MiniResultType.å¼‚å¸¸;
-    /// <summary>
-    /// é’“é±¼çš„å°æ¸¸æˆ
+    /// µöÓãµÄĞ¡ÓÎÏ·
     /// </summary>
     IEnumerator Fishing(int Id)
     {
@@ -138,11 +144,14 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         MiniResult = MiniGameManager.Instance.MiniResult;
-        if (MiniResult != MiniResultType.å¼‚å¸¸)
+        if (MiniResult != MiniResultType.Òì³£)
         {
-            Debug.Log("é’“é±¼å®Œæˆ,é’“é±¼ç»“æœ:"+MiniResult.ToString());
+            Debug.Log("µöÓãÍê³É,µöÓã½á¹û:"+MiniResult.ToString());
+            AddFishes(MiniResult);
         }
         enabled = true;
         MiniGame = null;
     }
+
+    
 }

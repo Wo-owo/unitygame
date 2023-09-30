@@ -1,6 +1,6 @@
 public enum ItemType
 {
-    Fish,Bait,FishingRod
+    Fish,Bait,FishingRod,smallFish,bigFish,rareFish
 }
 
 public enum SlotType
