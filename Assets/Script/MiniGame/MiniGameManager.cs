@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,10 +8,10 @@ using static UnityEditor.Progress;
 
 public enum MiniResultType
 {
-    Òì³£ = -1,
-    ÆÕÍ¨³É¹¦,
-    ÍêÃÀµöÆğ,
-    µöÓãÊ§°Ü
+    å¼‚å¸¸ = -1,
+    æ™®é€šæˆåŠŸ,
+    å®Œç¾é’“èµ·,
+    é’“é±¼å¤±è´¥
 }
 public class MiniGameManager : Singleton<MiniGameManager>
 {
@@ -26,7 +26,7 @@ public class MiniGameManager : Singleton<MiniGameManager>
     public bool IsStart = false;
     public MiniResultType MiniResult;
     private Canvas canvas;
-    //TODOÔİÊ±Í¨¹ıbutton°´Å¥µ÷ÓÃÄ¬ÈÏ1001ÎïÆ·
+    //TODOæš‚æ—¶é€šè¿‡buttonæŒ‰é’®è°ƒç”¨é»˜è®¤1001ç‰©å“
     protected override void Awake()
     {
         base.Awake();
@@ -52,7 +52,7 @@ public class MiniGameManager : Singleton<MiniGameManager>
         if (time > DescTimeMax && mProgressBar.Size < 1)
         {
             canvas.targetDisplay = 1;
-            MiniResult = MiniResultType.µöÓãÊ§°Ü;
+            MiniResult = MiniResultType.é’“é±¼å¤±è´¥;
             IsStart = false;
             return;
         }
@@ -62,14 +62,14 @@ public class MiniGameManager : Singleton<MiniGameManager>
             if (CatchFish.LeaveCount > 0)
             {
                 canvas.targetDisplay = 1;
-                MiniResult = MiniResultType.ÆÕÍ¨³É¹¦;
-                InventoryManager.Instance.AddItem(fishID, 1);//TODOÔİÊ±Ö±½Óµ÷µ¥ÀıÍù±³°üÈû
+                MiniResult = MiniResultType.æ™®é€šæˆåŠŸ;
+                InventoryManager.Instance.AddItem(fishID, 1);//TODOæš‚æ—¶ç›´æ¥è°ƒå•ä¾‹å¾€èƒŒåŒ…å¡
             }
             else
             {
                 canvas.targetDisplay = 1;
-                MiniResult = MiniResultType.ÍêÃÀµöÆğ;
-                InventoryManager.Instance.AddItem(fishID, 2);//TODOÔİÊ±Ö±½Óµ÷µ¥ÀıÍù±³°üÈû
+                MiniResult = MiniResultType.å®Œç¾é’“èµ·;
+                InventoryManager.Instance.AddItem(fishID, 2);//TODOæš‚æ—¶ç›´æ¥è°ƒå•ä¾‹å¾€èƒŒåŒ…å¡
             }
             return;
         }
