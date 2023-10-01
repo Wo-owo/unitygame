@@ -18,7 +18,7 @@ public class TimeManager : Singleton<TimeManager>
     /// <param name="action">指定发生的方法委托</param>
     public void TakeInHourEvent(int hour, UnityAction action)
     {
-        if(Hour_Event.ContainsKey(hour))
+        if (Hour_Event.ContainsKey(hour))
         {
             Hour_Event[hour] += action;
             return;
@@ -33,19 +33,26 @@ public class TimeManager : Singleton<TimeManager>
             return;
         }
     }
-    public void GetTimer()
+    GameTimeDate Timer;
+    public void StartTimer(int m)
     {
-
+        Timer = Game_Time.newGameTimeDate(m);
     }
+    public bool GetTimerEnd() => Game_Time >= Timer;
     private void Start()
     {
+        var t = new GameTimeDate(1000000);
+        Debug.Log(t.ToString());
+        Debug.Log(t.GetToMinute());
         Game_Time.HourChanged += (h) =>
         {
-            Hour_Event[h]?.Invoke();
+            if (Hour_Event.ContainsKey(h))
+                Hour_Event[h]?.Invoke();
         };//监听小时改变事件
         var action = new UnityAction(() => Debug.Log("该睡觉了"));
         TakeInHourEvent(1, action);//添加20点睡觉
         //DeleteHourEvent(1, action);//移除事件
+        StartTimer(10);
     }
     // Update is called once per frame
     void Update()
@@ -56,6 +63,7 @@ public class TimeManager : Singleton<TimeManager>
             Game_Time.Minute++;
             _timeTiming = 0;
         }
+        Debug.Log(GetTimerEnd());
     }
     private void OnGUI()
     {
@@ -100,7 +108,7 @@ public class GameTimeDate
             }
             HourChanged?.Invoke(hour);
         }
-    }
+    }//60
     public int Day
     {
         get => day; set
@@ -108,11 +116,11 @@ public class GameTimeDate
             day = value;
             if (day == 30)
             {
-                day = 1;
+                day = 0;
                 Month++;
             }
         }
-    }
+    }//24
     public int Month
     {
         get => month; set
@@ -120,30 +128,56 @@ public class GameTimeDate
             month = value;
             if (month == 12)
             {
-                month = 1;
+                month = 0;
                 year++;
             }
         }
-    }
+    }//30
     public int Year
     {
         get => year; set
         {
             year = value;
         }
-    }
+    }//12
     public event UnityAction<int> HourChanged;
     public GameTimeDate()
     {
-        day = 1;
-        month = 1;
     }
-    public GameTimeDate(int s)
+    public GameTimeDate(int m)
     {
+        for (int i = 0; i < m; i++)
+        {
+            Minute++;
+        }
+    }
+    public void AddMinute(int m)
+    {
+        for (int i = 0; i < m; i++)
+        {
+            Minute++;
+        }
+    }
+    public GameTimeDate newGameTimeDate(int m)
+    {
+        var time = new GameTimeDate();
+        time.minute = this.minute;
+        time.hour = this.hour;
+        time.day = this.day;
+        time.month = this.month;
+        time.year = this.year;
+        time.AddMinute(m);
+        return time;
+    }
+    public override string ToString() => $"{Year}年 {Month + 1}月 {Day + 1}日 {Hour}:{Minute}";
 
-    }
-    public override string ToString()
+    public int GetToMinute() => minute + hour * 60 + day * 60 * 24 + month * 60 * 24 * 30 + year * 60 * 24 * 30 * 12;
+    public static bool operator >=(GameTimeDate a, GameTimeDate b)
     {
-        return $"{Year}年 {Month}月 {Day}日 {Hour}:{Minute}";
+        return a.year >= b.Year && a.month >= b.month && a.day >= b.day && a.hour >= b.hour && a.minute >= b.minute;
+    }
+    public static bool operator <=(GameTimeDate a, GameTimeDate b)
+    {
+        return a.year <= b.Year && a.month <= b.month && a.day <= b.day && a.hour <= b.hour && a.minute <= b.minute;
     }
 }
