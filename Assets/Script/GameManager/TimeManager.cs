@@ -48,7 +48,7 @@ public class TimeManager : Singleton<TimeManager>
                 Hour_Event[h]?.Invoke();
         };//监听小时改变事件
         var action = new UnityAction(() => Debug.Log("该睡觉了"));
-        TakeInHourEvent(12, action);//添加20点睡觉
+        TakeInHourEvent(20, action);//添加20点睡觉
         //DeleteHourEvent(1, action);//移除事件
         StartTimer(10);
     }
