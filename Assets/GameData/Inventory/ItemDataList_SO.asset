@@ -24,6 +24,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 1
   - itemID: 1002
     itemName: "\u2018\u2019\u2018"
     itemIcon: {fileID: 21300000, guid: 9930d861d3ccf4ddc87536ae85a56425, type: 3}
@@ -35,6 +37,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 0
+    maxWeight: 0
+    isFound: 1
   - itemID: 1003
     itemName: 1
     itemIcon: {fileID: 21300000, guid: 13fd782ac3661413abe57fc16343e499, type: 3}
@@ -46,6 +50,8 @@ MonoBehaviour:
     itemLucky: 2
     itemDurability: 0
     itemWeight: 1
+    maxWeight: 0
+    isFound: 1
   - itemID: 1004
     itemName: 2
     itemIcon: {fileID: 21300000, guid: 709947d08509b408db26e4136a0232ee, type: 3}
@@ -57,6 +63,8 @@ MonoBehaviour:
     itemLucky: 1
     itemDurability: 0
     itemWeight: 2
+    maxWeight: 0
+    isFound: 1
   - itemID: 1005
     itemName: "\u5C0F\u4E11\u9C7C"
     itemIcon: {fileID: -1626497336, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -68,39 +76,47 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 1
   - itemID: 1006
     itemName: "\u73CD\u60DC\u9C7C_1"
     itemIcon: {fileID: -179151772, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -179151772, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 0
+    itemType: 5
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 1
   - itemID: 1007
     itemName: "\u73CD\u60DC\u9C7C_2"
     itemIcon: {fileID: -1664953180, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1664953180, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 0
+    itemType: 5
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 1
   - itemID: 1008
     itemName: "\u73CD\u60DC\u9C7C_3"
     itemIcon: {fileID: -1235130153, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1235130153, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 0
+    itemType: 5
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1009
     itemName: "\u73CD\u60DC\u9C7C_4"
     itemIcon: {fileID: 1055881157, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -112,6 +128,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1010
     itemName: "\u73CD\u60DC\u9C7C_5"
     itemIcon: {fileID: -1359555207, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -123,6 +141,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1011
     itemName: "\u73CD\u60DC\u9C7C_6"
     itemIcon: {fileID: -936784430, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -134,6 +154,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1012
     itemName: "\u73CD\u60DC\u9C7C_7"
     itemIcon: {fileID: -1379023057, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -145,6 +167,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1013
     itemName: "\u73CD\u60DC\u9C7C_8"
     itemIcon: {fileID: -1224752380, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -156,6 +180,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1014
     itemName: "\u73CD\u60DC\u9C7C_9"
     itemIcon: {fileID: -1068052667, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -167,6 +193,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1015
     itemName: "\u73CD\u60DC\u9C7C_10"
     itemIcon: {fileID: 249119176, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -178,6 +206,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1016
     itemName: "\u73CD\u60DC\u9C7C_11"
     itemIcon: {fileID: -304525382, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -189,6 +219,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 0
+    maxWeight: 0
+    isFound: 0
   - itemID: 1016
     itemName: "\u666E\u901A\u9C7C_0"
     itemIcon: {fileID: -1193794544, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -200,6 +232,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1017
     itemName: "\u666E\u901A\u9C7C_1"
     itemIcon: {fileID: 1743126964, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -211,6 +245,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1018
     itemName: "\u666E\u901A\u9C7C_2"
     itemIcon: {fileID: 891230788, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -222,6 +258,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1019
     itemName: "\u666E\u901A\u9C7C_3"
     itemIcon: {fileID: -256890871, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -233,6 +271,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1020
     itemName: "\u666E\u901A\u9C7C_4"
     itemIcon: {fileID: -848321763, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -244,6 +284,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1021
     itemName: "\u666E\u901A\u9C7C_5"
     itemIcon: {fileID: 1248165972, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -255,6 +297,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1022
     itemName: "\u666E\u901A\u9C7C_6"
     itemIcon: {fileID: 2038072878, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -266,6 +310,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1023
     itemName: "\u666E\u901A\u9C7C_7"
     itemIcon: {fileID: -494654531, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -277,6 +323,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1024
     itemName: "\u666E\u901A\u9C7C_8"
     itemIcon: {fileID: 1203011885, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -288,6 +336,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1025
     itemName: "\u666E\u901A\u9C7C_9"
     itemIcon: {fileID: 437806989, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -299,6 +349,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1026
     itemName: "\u666E\u901A\u9C7C_10"
     itemIcon: {fileID: -1546865505, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -310,6 +362,8 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0
   - itemID: 1027
     itemName: "\u666E\u901A\u9C7C_11"
     itemIcon: {fileID: -620888707, guid: 53b07d112898db345b0d392ec1a99b13, type: 3}
@@ -321,3 +375,5 @@ MonoBehaviour:
     itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
+    maxWeight: 0
+    isFound: 0

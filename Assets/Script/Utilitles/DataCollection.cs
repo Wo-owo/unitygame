@@ -24,6 +24,10 @@ public class ItemDetails
     public float itemDurability;
 
     public float itemWeight;
+    public float maxWeight;
+
+    //ÊÇ·ñµöµ½¹ý
+    public bool isFound;
 }
 [System.Serializable]
 public struct InventoryItem

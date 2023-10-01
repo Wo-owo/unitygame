@@ -114,6 +114,11 @@ public static class EventHandler
     {
         ShowTradeUI?.Invoke(item, isSell);
     }
+    public static event Action<InventoryLocation, int, InventoryLocation, int> ShowAltarUI;
+    public static void CallShowAltarUI(InventoryLocation locationFrom, int fromIndex, InventoryLocation locationTarget, int targetIndex)
+    {
+        ShowAltarUI?.Invoke(locationFrom, fromIndex, locationTarget, targetIndex);
+    }
 
     //建造
     public static event Action<int, Vector3> BuildFurnitureEvent;
