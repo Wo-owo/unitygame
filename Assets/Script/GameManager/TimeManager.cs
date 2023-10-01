@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class TimeManager : Singleton<TimeManager>
 {
@@ -52,9 +53,14 @@ public class TimeManager : Singleton<TimeManager>
         //DeleteHourEvent(1, action);//移除事件
         StartTimer(10);
     }
+    public bool Stop = false;
     // Update is called once per frame
     void Update()
     {
+        if (Stop)
+        {
+            return;
+        }
         _timeTiming += Time.deltaTime;
         if (_timeTiming >= TimeTimingUnit)
         {
@@ -66,10 +72,55 @@ public class TimeManager : Singleton<TimeManager>
             Debug.Log($"计时结束,当前游戏时间{Game_Time}");
             Timer = null;
         }
+        if (canvas != null && Stop == false&& isSleep==true)
+        {
+            foreach (Canvas c in canvas)
+            {
+                c.gameObject.SetActive(true);
+            }
+            isSleep = false;
+        }
+    }
+    bool isSleep;
+    Canvas[] canvas;
+    /// <summary>
+    /// 执行休眠，直接跳过指定分钟
+    /// </summary>
+    /// <param name="m"></param>
+    public void PlayerSleep(int m)
+    {
+        isSleep = true;
+        Stop = true;
+        if (canvas == null)
+            canvas = Resources.FindObjectsOfTypeAll<Canvas>();
+        foreach (Canvas c in canvas)
+        {
+            c.gameObject.SetActive(false);
+        }
+        Task.Run(async () =>
+        {
+            await Task.Delay(3000); 
+            Stop = false;
+            Game_Time.AddMinute(m,false);
+        });
+    }
+    /// <summary>
+    /// 执行休眠，直接跳过指定分钟并再跳过后执行指定委托
+    /// </summary>
+    /// <param name="m"></param>
+    /// <param name="action"></param>
+    public void PlayerSleep(int m, UnityAction action)
+    {
+        Game_Time.AddMinute(m, false);
+        action?.Invoke();
     }
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 0, 200, 30), Game_Time.ToString());
+        if (isSleep)
+        {
+            GUI.Box(new Rect(0, 0, UnityEngine.Screen.width, UnityEngine.Screen.height), "一段时间过去了.....");
+        }
     }
 }
 [Serializable]
@@ -153,12 +204,26 @@ public class GameTimeDate
             Minute++;
         }
     }
-    public void AddMinute(int m)
+    public void AddMinute(int m,bool trigeerEvent)
     {
-        for (int i = 0; i < m; i++)
+        if (trigeerEvent)
         {
-            Minute++;
+            for (int i = 0; i < m; i++)
+            {
+                Minute++;
+            }
         }
+        else
+        {
+            var e = HourChanged;
+            HourChanged = null;
+            for (int i = 0; i < m; i++)
+            {
+                Minute++;
+            }
+            HourChanged = e;
+        }
+
     }
     public GameTimeDate newGameTimeDate(int m)
     {
@@ -168,10 +233,10 @@ public class GameTimeDate
         time.day = this.day;
         time.month = this.month;
         time.year = this.year;
-        time.AddMinute(m);
+        time.AddMinute(m, false);
         return time;
     }
-    public override string ToString() => $"{Year}年 {Month + 1}月 {Day + 1}日 {Hour}:{Minute}";
+    public override string ToString() => $"{Year}年 {Month + 1}月 {Day + 1}日 {(Hour > 10 ? Hour : $"0{Hour}")}:{(Minute > 10 ? Minute : $"0{Minute}")}";
 
     public int GetToMinute() => minute + hour * 60 + day * 60 * 24 + month * 60 * 24 * 30 + year * 60 * 24 * 30 * 12;
     public static bool operator >=(GameTimeDate a, GameTimeDate b)
