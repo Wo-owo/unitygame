@@ -33,6 +33,10 @@ public class TimeManager : Singleton<TimeManager>
             return;
         }
     }
+    public void GetTimer()
+    {
+
+    }
     private void Start()
     {
         Game_Time.HourChanged += (h) =>
@@ -41,7 +45,7 @@ public class TimeManager : Singleton<TimeManager>
         };//监听小时改变事件
         var action = new UnityAction(() => Debug.Log("该睡觉了"));
         TakeInHourEvent(1, action);//添加20点睡觉
-        DeleteHourEvent(1, action);
+        //DeleteHourEvent(1, action);//移除事件
     }
     // Update is called once per frame
     void Update()
@@ -133,6 +137,10 @@ public class GameTimeDate
     {
         day = 1;
         month = 1;
+    }
+    public GameTimeDate(int s)
+    {
+
     }
     public override string ToString()
     {
