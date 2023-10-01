@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public ItemDataList_SO itemDataList_SO;//物品数据
 
     private float sleepTime;//睡觉时间
-    
+
     public SlotUI fishingRod;//鱼竿栏
     public SlotUI bait;//鱼饵
 
@@ -52,13 +52,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    Coroutine MiniGame=null;
+    Coroutine MiniGame = null;
     /// <summary>
     /// 点击钓鱼
     /// </summary>
     public void ClickToFishes()
     {
-        if(MiniGame == null )
+        if (MiniGame == null)
         {
             MiniGame = StartCoroutine(Fishing(1001));
         }
@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 将鱼添加入背包
     /// </summary>
-    public ItemDetails AddFishes(MiniResultType _result){
+    public ItemDetails AddFishes(MiniResultType _result)
+    {
         Debug.Log("抽取鱼");
         int totalLuck = 0;//权重
         ItemType _type = new();//类型
@@ -85,22 +86,27 @@ public class GameManager : MonoBehaviour
         }
 
 
-        foreach(var _fish in allFish){
-            if(_fish.itemLucky<luck && _fish.itemType==_type){
-                totalLuck+=_fish.itemLucky;
+        foreach (var _fish in allFish)
+        {
+            if (_fish.itemLucky < luck && _fish.itemType == _type)
+            {
+                totalLuck += _fish.itemLucky;
             }
         }
-        int randomValue = Random.Range(0,totalLuck);
-        foreach(var _fish in allFish){
-            if(_fish.itemLucky<luck&&_fish.itemType==_type){
-                randomValue-=_fish.itemLucky;
-                if(randomValue<=0){
-                    Debug.Log("钓上了id:"+_fish.itemID+"的"+_fish.itemName);
-                    _fish.itemWeight+=Random.Range(-10,11);//随机重量
+        int randomValue = Random.Range(0, totalLuck);
+        foreach (var _fish in allFish)
+        {
+            if (_fish.itemLucky < luck && _fish.itemType == _type)
+            {
+                randomValue -= _fish.itemLucky;
+                if (randomValue <= 0)
+                {
+                    Debug.Log("钓上了id:" + _fish.itemID + "的" + _fish.itemName);
+                    _fish.itemWeight += Random.Range(-10, 11);//随机重量
 
 
                     return _fish;//返回鱼
-                    
+
                 }
             }
         }
@@ -122,11 +128,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void CountLucky()
     {
-        if(bait.itemDetails !=null){
+        if (bait.itemDetails != null)
+        {
             luck += fishingRod.itemDetails.itemLucky + bait.itemDetails.itemLucky;
         }
-        else if(bait.itemDetails==null){
-            luck = fishingRod.itemDetails.itemLucky ;
+        else if (bait.itemDetails == null)
+        {
+            luck = fishingRod.itemDetails.itemLucky;
         }
     }
 
@@ -146,12 +154,20 @@ public class GameManager : MonoBehaviour
         MiniResult = MiniGameManager.Instance.MiniResult;
         if (MiniResult != MiniResultType.异常)
         {
-            Debug.Log("钓鱼完成,钓鱼结果:"+MiniResult.ToString());
-            AddFishes(MiniResult);
+            Debug.Log("钓鱼完成,钓鱼结果:" + MiniResult.ToString());
+            var fish = AddFishes(MiniResult);
+            if(fish != null)
+            {
+                InventoryManager.Instance.AddItem(fish.itemID, 1);
+            }
+            else
+            {
+                Debug.Log("什么都没有钓上");
+            }
         }
         enabled = true;
         MiniGame = null;
     }
 
-    
+
 }

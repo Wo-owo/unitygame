@@ -744,6 +744,7 @@ MonoBehaviour:
   DescTimeMax: 20
   fishID: 0
   IsStart: 0
+  MiniResult: 0
 --- !u!1 &9024830360997669456
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,7 +863,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 9024830360411219672}
   m_HandleRect: {fileID: 9024830360411219673}
   m_Direction: 0
