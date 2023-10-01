@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     public ItemToolTip itemToolTip;
+    public ItemToolTip guideDetails;
+    public ItemDataList_SO ItemList;
 
     [Header("拖拽图片")]
     public Image dragItem;
@@ -19,6 +21,10 @@ public class InventoryUI : MonoBehaviour
     [Header("通用背包")]
     [SerializeField] private GameObject baseBag;
     public GameObject shopSlotPrefab;
+
+    [Header("图鉴")]
+    public GameObject guideUI;
+    public GameObject guideSlotPrefab;
 
     [Header("交易UI")]
     public TradeUI tradeUI;
@@ -43,6 +49,15 @@ public class InventoryUI : MonoBehaviour
         EventHandler.BaseBagOpenEvent -= OnBaseBagOpenEvent;
         EventHandler.BaseBagCloseEvent -= OnBaseBagCloseEvent;
         EventHandler.ShowTradeUI -= OnShowTradeUI;
+    }
+
+    private void Awake()
+    {
+        foreach(ItemDetails item in ItemList.itemDetailsList)
+        {
+            GuideUI guiSlot =Instantiate(guideSlotPrefab,guideUI.transform).GetComponent<GuideUI>();
+            guiSlot.itemDetails = item;
+        }
     }
 
 
