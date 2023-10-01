@@ -36,21 +36,19 @@ public class TimeManager : Singleton<TimeManager>
     GameTimeDate Timer;
     public void StartTimer(int m)
     {
+        Debug.Log($"计时开始:{m}游戏分钟,当前游戏时间{Game_Time}");
         Timer = Game_Time.newGameTimeDate(m);
     }
-    public bool GetTimerEnd() => Game_Time >= Timer;
+    public bool GetTimerEnd() => Timer != null && Timer <= Game_Time;
     private void Start()
     {
-        var t = new GameTimeDate(1000000);
-        Debug.Log(t.ToString());
-        Debug.Log(t.GetToMinute());
         Game_Time.HourChanged += (h) =>
         {
             if (Hour_Event.ContainsKey(h))
                 Hour_Event[h]?.Invoke();
         };//监听小时改变事件
         var action = new UnityAction(() => Debug.Log("该睡觉了"));
-        TakeInHourEvent(1, action);//添加20点睡觉
+        TakeInHourEvent(12, action);//添加20点睡觉
         //DeleteHourEvent(1, action);//移除事件
         StartTimer(10);
     }
@@ -63,7 +61,11 @@ public class TimeManager : Singleton<TimeManager>
             Game_Time.Minute++;
             _timeTiming = 0;
         }
-        Debug.Log(GetTimerEnd());
+        if (GetTimerEnd())
+        {
+            Debug.Log($"计时结束,当前游戏时间{Game_Time}");
+            Timer = null;
+        }
     }
     private void OnGUI()
     {
