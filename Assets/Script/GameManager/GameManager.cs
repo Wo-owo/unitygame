@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 /// <summary>
@@ -8,13 +9,19 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int luck;//幸运值
+    public int baseLuck;//基础幸运值
+    public int additionLuck;//附加幸运值
     //public int 
+    public enum Luckday{
+        angel,devil,normal
+    }
+    public Luckday luckday;//幸运日
 
-    //public List<Fishes> goodfish = new List<Fishes>();//好的鱼
-    //public List<Fishes> badfish = new List<Fishes>();//差的鱼
-    public List<ItemDetails> allFish = new List<ItemDetails>();
-    public GameObject fishPrefab;//鱼的预制体
+    public List<ItemDetails> goodFishes = new List<ItemDetails>();//好的鱼
+    public List<ItemDetails> badFishes = new List<ItemDetails>();//差的鱼
+    public List<ItemDetails> allFishes = new List<ItemDetails>();//全部的鱼
+
+    // public GameObject fishPrefab;//鱼的预制体
     public GameObject fishingUI;//钓鱼得小游戏
 
     public ItemDataList_SO itemDataList_SO;//物品数据
@@ -23,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     public SlotUI fishingRod;//鱼竿栏
     public SlotUI bait;//鱼饵
+
+    // public List<SlotUI> altarSlots= new List<SlotUI>();//献祭格子
 
     private void Awake()
     {
@@ -44,6 +53,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
+        ClassifyFishes();
     }
 
     // Update is called once per frame
@@ -65,12 +75,47 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 鱼分类
+    /// </summary>
+    private void ClassifyFishes(){
+        float _standardWeight= 2f;//衡量好鱼的重量标注
+        foreach(var _item in itemDataList_SO.itemDetailsList){
+
+            //根据鱼种类分类
+            // if(_item.itemType == ItemType.smallFish){
+            //     badFishes.Add(_item);
+            // }
+            // else if(_item.itemType == ItemType.bigFish){
+            //     if(_item.itemWeight>_standardWeight){
+            //         goodFishes.Add(_item);
+            //     }
+            //     else{
+            //         badFishes.Add(_item);
+            //     }
+            // }
+            // else if(_item.itemType == ItemType.rareFish){
+            //     goodFishes.Add(_item);
+            // }
+
+            //根据重量划分
+            if(_item.itemType == ItemType.Fish){
+                if(_item.itemWeight>=_standardWeight){
+                    goodFishes.Add(_item);
+                }
+                else{
+                    badFishes.Add(_item);
+                }
+                allFishes.Add(_item);
+            }
+        }
+    }
+    /// <summary>
     /// 将鱼添加入背包
     /// </summary>
     public ItemDetails AddFishes(MiniResultType _result)
     {
         Debug.Log("抽取鱼");
-        int totalLuck = 0;//权重
+        int _weight = 0;//权重
         ItemType _type = new();//类型
         switch (_result)
         {
@@ -84,33 +129,39 @@ public class GameManager : MonoBehaviour
                 Debug.Log("其他情况");
                 break;
         }
-
-
-        foreach (var _fish in allFish)
-        {
-            if (_fish.itemLucky < luck && _fish.itemType == _type)
-            {
-                totalLuck += _fish.itemLucky;
-            }
+        Debug.Log(_type);
+        List<ItemDetails> _temp = new();
+        if(luckday==Luckday.angel){
+            _temp = goodFishes;
         }
-        int randomValue = Random.Range(0, totalLuck);
-        foreach (var _fish in allFish)
+        else if(luckday==Luckday.devil){
+            _temp = badFishes;
+        }
+        else if(luckday==Luckday.normal){
+            _temp = allFishes;
+        }
+        
+        foreach (var _fish in _temp){
+            if (_fish.itemLucky < baseLuck+additionLuck && _fish.itemType == _type)
+            {
+                _weight += _fish.itemLucky;
+                }
+        }
+        int randomValue = Random.Range(0, _weight);
+        foreach (var _fish in _temp)
         {
-            if (_fish.itemLucky < luck && _fish.itemType == _type)
+            if (_fish.itemLucky < baseLuck+additionLuck && _fish.itemType == _type)
             {
                 randomValue -= _fish.itemLucky;
                 if (randomValue <= 0)
                 {
                     Debug.Log("钓上了id:" + _fish.itemID + "的" + _fish.itemName);
-                    _fish.itemWeight += Random.Range(-10, 11);//随机重量
-
-
+                    _fish.itemWeight += Random.Range(-1,2);//随机重量
                     return _fish;//返回鱼
-
                 }
             }
         }
-
+        
         return null;
     }
 
@@ -124,18 +175,40 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 今日是天使还是恶魔
+    /// </summary>
+    public void LuckChange_Day(){
+        additionLuck = 0;
+        int a = Random.Range(0,100);
+        if(a<20){
+            luckday = Luckday.angel;
+            additionLuck+=5;
+        }
+        else if(a>80){
+            luckday = Luckday.devil;
+            additionLuck-=5;
+        }
+        else{
+            luckday = Luckday.normal;
+        }
+        CountLucky();
+    }
+
+
+    /// <summary>
     /// 幸运值计算
     /// </summary>
     public void CountLucky()
     {
-        if (bait.itemDetails != null)
+        if (bait.itemDetails != null)//如果存在鱼饵
         {
-            luck += fishingRod.itemDetails.itemLucky + bait.itemDetails.itemLucky;
+            additionLuck += fishingRod.itemDetails.itemLucky + bait.itemDetails.itemLucky;
         }
-        else if (bait.itemDetails == null)
+        else if (bait.itemDetails == null)//如果不存在鱼饵
         {
-            luck = fishingRod.itemDetails.itemLucky;
+            additionLuck = fishingRod.itemDetails.itemLucky;
         }
+
     }
 
     MiniResultType MiniResult = MiniResultType.异常;
@@ -145,6 +218,9 @@ public class GameManager : MonoBehaviour
     IEnumerator Fishing(int Id)
     {
         yield return null;
+        //根据幸运值计算钓鱼时间
+        MiniGameManager.Instance.DescTimeMax = 100-(baseLuck+additionLuck)+Random.Range(0,10);
+
         MiniGameManager.Instance.StartGame(Id);
         enabled = false;
         while (MiniGameManager.Instance.IsStart)
@@ -168,6 +244,23 @@ public class GameManager : MonoBehaviour
         enabled = true;
         MiniGame = null;
     }
-
-
+    
+    // /// <summary>
+    // /// 开始献祭
+    // /// </summary>
+    // public void StartAltar(){
+    //     int _temp = 0;
+    //     foreach(var _slot in altarSlots){
+    //         if(_slot.itemDetails.itemType == ItemType.Fish){
+                
+    //             if(_slot.itemDetails.itemType == ItemType.smallFish){
+    //                 _temp +=2;
+    //             }
+    //         }
+    //         else if(_slot.itemDetails==null){
+                
+    //         }
+    //     }
+    //     baseLuck+=_temp;
+    // }
 }
