@@ -63,13 +63,11 @@ public class MiniGameManager : Singleton<MiniGameManager>
             {
                 canvas.targetDisplay = 1;
                 MiniResult = MiniResultType.普通成功;
-                InventoryManager.Instance.AddItem(fishID, 1);//TODO暂时直接调单例往背包塞
             }
             else
             {
                 canvas.targetDisplay = 1;
                 MiniResult = MiniResultType.完美钓起;
-                InventoryManager.Instance.AddItem(fishID, 2);//TODO暂时直接调单例往背包塞
             }
             return;
         }

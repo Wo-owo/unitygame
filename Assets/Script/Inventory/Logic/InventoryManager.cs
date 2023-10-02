@@ -179,6 +179,30 @@ public class InventoryManager : Singleton<InventoryManager>
 
         InventoryItem currentItem = currentList[fromIndex];
 
+        if (locationFrom == InventoryLocation.Player && locationTarget == InventoryLocation.Box)
+        {
+            InventoryItem targetItem = targetList[targetIndex];
+            foreach(InventoryItem item in targetList)
+            {
+                if (item.itemID == currentItem.itemID)
+                {
+                    Debug.Log("这类鱼已经献祭过了");
+                    return;
+                }
+            }
+            currentItem.itemAmount--;
+            if (currentItem.itemAmount > 0)
+                currentList[fromIndex] = currentItem;
+            else
+                currentList[fromIndex]=new InventoryItem();
+            if (currentItem.itemAmount>1)
+                currentItem.itemAmount=1;
+            targetList[targetIndex] = currentItem;
+            EventHandler.CallUpdateInventoryUI(locationFrom, currentList);
+            EventHandler.CallUpdateInventoryUI(locationTarget, targetList);
+            return;
+        }
+
         if (targetIndex < targetList.Count)
         {
             InventoryItem targetItem = targetList[targetIndex];
