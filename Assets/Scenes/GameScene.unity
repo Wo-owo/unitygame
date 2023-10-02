@@ -1894,7 +1894,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1914347970}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -3577,7 +3577,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1333816486}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -14288,7 +14288,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3426734117024123710}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MFarm.Inventory.InventoryUI, Assembly-CSharp
         m_MethodName: OpenBagUI
         m_Mode: 1
@@ -17997,7 +17997,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3426734118176793614}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NPCFunction, Assembly-CSharp
         m_MethodName: OpenShop
         m_Mode: 1
