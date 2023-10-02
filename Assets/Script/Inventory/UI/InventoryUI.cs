@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,8 +7,8 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     public ItemToolTip itemToolTip;
-    public ItemToolTip guideDetails;
-    public ItemDataList_SO ItemList;
+    
+    public ItemDataList_SO itemList;
 
     [Header("拖拽图片")]
     public Image dragItem;
@@ -25,6 +24,7 @@ public class InventoryUI : MonoBehaviour
     [Header("图鉴")]
     public GameObject guideUI;
     public GameObject guideSlotPrefab;
+    public ItemToolTip guideDetails;
 
     [Header("交易UI")]
     public TradeUI tradeUI;
@@ -32,7 +32,9 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] private SlotUI[] playerSlots;
     [SerializeField] private List<SlotUI> baseBagSlots;
-
+    [Header("祭坛")]
+    public SlotUI[] altarSlots;
+    public AltarManager altarDetails;
     private void OnEnable()
     {
         EventHandler.UpdateInventoryUI += OnUpdateInventoryUI;
@@ -40,6 +42,7 @@ public class InventoryUI : MonoBehaviour
         EventHandler.BaseBagOpenEvent += OnBaseBagOpenEvent;
         EventHandler.BaseBagCloseEvent += OnBaseBagCloseEvent;
         EventHandler.ShowTradeUI += OnShowTradeUI;
+        EventHandler.ShowAltarUI += OnShowAltarUI;
     }
 
     private void OnDisable()
@@ -49,13 +52,20 @@ public class InventoryUI : MonoBehaviour
         EventHandler.BaseBagOpenEvent -= OnBaseBagOpenEvent;
         EventHandler.BaseBagCloseEvent -= OnBaseBagCloseEvent;
         EventHandler.ShowTradeUI -= OnShowTradeUI;
+        EventHandler.ShowAltarUI -= OnShowAltarUI;
+    }
+
+    private void OnShowAltarUI(InventoryLocation locationFrom, int fromIndex, InventoryLocation locationTarget, int targetIndex)
+    {
+        altarDetails.gameObject.SetActive(true);
+        altarDetails.SetupAltarUI(locationFrom, fromIndex, locationTarget, targetIndex);
     }
 
     private void Awake()
     {
-        foreach(ItemDetails item in ItemList.itemDetailsList)
+        foreach (ItemDetails item in itemList.itemDetailsList)
         {
-            GuideUI guiSlot =Instantiate(guideSlotPrefab,guideUI.transform).GetComponent<GuideUI>();
+            GuideUI guiSlot = Instantiate(guideSlotPrefab, guideUI.transform).GetComponent<GuideUI>();
             guiSlot.itemDetails = item;
         }
     }
@@ -70,6 +80,10 @@ public class InventoryUI : MonoBehaviour
         }
         bagOpened = bagUI.activeInHierarchy;
         playerMoneyText.text = InventoryManager.Instance.playerMoney.ToString();
+        for (int i = 0; i < altarSlots.Length; i++)
+        {
+            altarSlots[i].slotIndex = i;
+        }
     }
 
     private void Update()
@@ -107,7 +121,7 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < bagData.itemList.Count; i++)
         {
-            var slot = Instantiate(prefab, baseBag.transform.GetChild(0)).GetComponent<SlotUI>();
+            SlotUI slot = Instantiate(prefab, baseBag.transform.GetChild(0)).GetComponent<SlotUI>();
             slot.slotIndex = i;
             baseBagSlots.Add(slot);
         }
@@ -134,7 +148,7 @@ public class InventoryUI : MonoBehaviour
         itemToolTip.gameObject.SetActive(false);
         UpdateSlotHightlight(-1);
 
-        foreach (var slot in baseBagSlots)
+        foreach (SlotUI slot in baseBagSlots)
         {
             Destroy(slot.gameObject);
         }
@@ -169,7 +183,7 @@ public class InventoryUI : MonoBehaviour
                 {
                     if (list[i].itemAmount > 0)
                     {
-                        var item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
+                        ItemDetails item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
                         playerSlots[i].UpdateSlot(item, list[i].itemAmount);
                     }
                     else
@@ -183,12 +197,26 @@ public class InventoryUI : MonoBehaviour
                 {
                     if (list[i].itemAmount > 0)
                     {
-                        var item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
+                        ItemDetails item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
                         baseBagSlots[i].UpdateSlot(item, list[i].itemAmount);
                     }
                     else
                     {
                         baseBagSlots[i].UpdateEmptySlot();
+                    }
+                }
+                break;
+            case InventoryLocation.Box:
+                for (int i = 0; i < altarSlots.Length; i++)
+                {
+                    if (list[i].itemAmount > 0)
+                    {
+                        ItemDetails item = InventoryManager.Instance.GetItemDetails(list[i].itemID);
+                        altarSlots[i].UpdateSlot(item, list[i].itemAmount);
+                    }
+                    else
+                    {
+                        altarSlots[i].UpdateEmptySlot();
                     }
                 }
                 break;
@@ -214,7 +242,7 @@ public class InventoryUI : MonoBehaviour
     /// <param name="index">序号</param>
     public void UpdateSlotHightlight(int index)
     {
-        foreach (var slot in playerSlots)
+        foreach (SlotUI slot in playerSlots)
         {
             if (slot.isSelected && slot.slotIndex == index)
             {
@@ -227,4 +255,5 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
 }

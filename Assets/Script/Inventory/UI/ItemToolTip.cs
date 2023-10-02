@@ -15,6 +15,7 @@ public class ItemToolTip : MonoBehaviour
 
     public void SetupTooltip(ItemDetails itemDetails,SlotType slotType)
     {
+        if (itemDetails == null) return;
         nameText.text = itemDetails.itemName;
         typeText.text = GetItemType(itemDetails.itemType);
         descriptionText.text = itemDetails.itemDescription;

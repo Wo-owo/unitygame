@@ -41,8 +41,9 @@ public class TimeManager : Singleton<TimeManager>
         Timer = Game_Time.newGameTimeDate(m);
     }
     public bool GetTimerEnd() => Timer != null && Timer <= Game_Time;
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         Game_Time.HourChanged += (h) =>
         {
             if (Hour_Event.ContainsKey(h))
@@ -236,7 +237,7 @@ public class GameTimeDate
         time.AddMinute(m, false);
         return time;
     }
-    public override string ToString() => $"{Year}年 {Month + 1}月 {Day + 1}日 {(Hour > 10 ? Hour : $"0{Hour}")}:{(Minute > 10 ? Minute : $"0{Minute}")}";
+    public override string ToString() => $"{Year}年 {Month + 1}月 {Day + 1}日 {(Hour >= 10 ? Hour : $"0{Hour}")}:{(Minute >= 10 ? Minute : $"0{Minute}")}";
 
     public int GetToMinute() => minute + hour * 60 + day * 60 * 24 + month * 60 * 24 * 30 + year * 60 * 24 * 30 * 12;
     public static bool operator >=(GameTimeDate a, GameTimeDate b)

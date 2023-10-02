@@ -8,6 +8,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public ItemDataList_SO itemDataList_SO;
     [Header("背包数据")]
     public InventoryBag_SO playerBag;
+    public InventoryBag_SO altarList;
 
     [Header("交易")]
     public int playerMoney;
@@ -15,6 +16,7 @@ public class InventoryManager : Singleton<InventoryManager>
     private void Start()
     {
         EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, playerBag.itemList);
+        EventHandler.CallUpdateInventoryUI(InventoryLocation.Box, altarList.itemList);
         //var sprite = Resources.LoadAll<Sprite>($"Sprite/Fish/普通鱼");
         //for (int i = 0; i < sprite.Length; i++)
         //{
@@ -69,7 +71,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public void AddItem(int itemId, int itemCount)
     {
         //是否已经有该物品
-        var index = GetItemIndexInBag(itemId);
+        int index = GetItemIndexInBag(itemId);
 
         AddItemAtIndex(itemId, index, itemCount);
 
@@ -99,7 +101,7 @@ public class InventoryManager : Singleton<InventoryManager>
     /// </summary>
     /// <param name="ID">物品ID</param>
     /// <returns>-1则没有这个物品否则返回序号</returns>
-    private int GetItemIndexInBag(int ID)
+    public int GetItemIndexInBag(int ID)
     {
         for (int i = 0; i < playerBag.itemList.Count; i++)
         {
@@ -171,8 +173,9 @@ public class InventoryManager : Singleton<InventoryManager>
     /// <param name="targetIndex"></param>
     public void SwapItem(InventoryLocation locationFrom, int fromIndex, InventoryLocation locationTarget, int targetIndex)
     {
-        var currentList = GetItemList(locationFrom);
-        var targetList = GetItemList(locationTarget);
+
+        List<InventoryItem> currentList = GetItemList(locationFrom);
+        List<InventoryItem> targetList = GetItemList(locationTarget);
 
         InventoryItem currentItem = currentList[fromIndex];
 
@@ -211,7 +214,7 @@ public class InventoryManager : Singleton<InventoryManager>
         return location switch
         {
             InventoryLocation.Player => playerBag.itemList,
-            //InventoryLocation.Box => currentBoxBag.itemList,
+            InventoryLocation.Box => altarList.itemList,
             _ => null
         };
     }
