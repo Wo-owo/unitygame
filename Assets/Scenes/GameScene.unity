@@ -7334,6 +7334,7 @@ GameObject:
   - component: {fileID: 1807965474}
   - component: {fileID: 1807965473}
   - component: {fileID: 1807965476}
+  - component: {fileID: 1807965477}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7440,6 +7441,26 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1807965477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807965472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a00396bbca37c04eb54dcf3465c9ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Game_Time:
+    minute: 0
+    hour: 0
+    day: 0
+    month: 0
+    year: 0
+  TimeTimingUnit: 1
+  Stop: 0
 --- !u!1 &1824703382
 GameObject:
   m_ObjectHideFlags: 0
@@ -14288,9 +14309,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MFarm.Inventory.InventoryUI, Assembly-CSharp
-        m_MethodName: OpenBagUI
+      - m_Target: {fileID: 3426734118176793614}
+        m_TargetAssemblyTypeName: NPCFunction, Assembly-CSharp
+        m_MethodName: OpenShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25452,7 +25473,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 9024830361612523625}
   m_HandleRect: {fileID: 9024830361612523624}
   m_Direction: 0
@@ -25756,7 +25777,7 @@ MonoBehaviour:
   Fish: {fileID: 0}
   CatchFish: {fileID: 0}
   Catch_MoveUP_Key: 32
-  Catch_Move_Speed: 30
+  Catch_Move_Speed: 50
   time: 0
   DescTimeMax: 20
   fishID: 0
@@ -25791,7 +25812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82ce1e59581b646b6aa7550c4f1788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 150
+  MoveSpeed: 500
 --- !u!50 &9024830361521959993
 Rigidbody2D:
   serializedVersion: 4
@@ -25932,7 +25953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeaveCount: 0
   Fish: {fileID: 0}
-  CathcFish_AddValue: 0.001
+  CathcFish_AddValue: 0.0001
   CathcFish_DecValue: -0.001
 --- !u!61 &9024830361595967623
 BoxCollider2D:
