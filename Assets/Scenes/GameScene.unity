@@ -3139,10 +3139,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 956844083}
-        m_TargetAssemblyTypeName: TimeManager, Assembly-CSharp
+      - m_Target: {fileID: 956844081}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PlayerSleep
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4640,6 +4640,8 @@ MonoBehaviour:
   itemDataList_SO: {fileID: 11400000, guid: 28404f3012314bf4c91df1beea08b2d4, type: 2}
   fishingRod: {fileID: 0}
   bait: {fileID: 0}
+  PlayerSleepTime: 360
+  PlayerSleepCount: 0
 --- !u!114 &956844082
 MonoBehaviour:
   m_ObjectHideFlags: 0
