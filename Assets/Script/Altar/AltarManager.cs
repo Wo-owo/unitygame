@@ -17,7 +17,6 @@ public class AltarManager : MonoBehaviour
 
     private void Awake()
     {
-        cancelButton.onClick.AddListener(CancelUI);
         submitButton.onClick.AddListener(TradeItem);
     }
     public void SetupAltarUI(InventoryLocation locationFrom, int fromIndex, InventoryLocation locationTarget, int targetIndex)
@@ -31,14 +30,9 @@ public class AltarManager : MonoBehaviour
     {
         InventoryManager.Instance.SwapItem(locationFrom, fromIndex, locationTarget, targetIndex);
 
-        CancelUI();
     }
 
 
-    private void CancelUI()
-    {
-        this.gameObject.SetActive(false);
-    }
 
     /// <summary>
     /// 开始献祭
