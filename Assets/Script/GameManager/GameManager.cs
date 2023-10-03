@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         //添加未睡觉事件
         TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
         {
-            PlayerSleepCount++; 
+            PlayerSleepCount++;
             if (PlayerSleepCount >= 3)
             {
                 PlayerSleepCount = 0;
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
             // }
 
             //根据重量划分
-            if (_item.itemType == ItemType.Fish)
+            if (_item.itemType == ItemType.Fish || _item.itemType == ItemType.smallFish || _item.itemType == ItemType.bigFish)
             {
                 if (_item.itemWeight >= _standardWeight)
                 {

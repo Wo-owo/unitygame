@@ -3783,7 +3783,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1333816486}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -8504,7 +8504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1914347971
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10791,7 +10791,7 @@ MonoBehaviour:
   slotHightlight: {fileID: 2561527665933034618}
   button: {fileID: 7891140194129381361}
   slotType: 1
-  isSelected: 0
+  isSelected: 1
   slotIndex: 0
   itemDetails:
     itemID: 0
@@ -14700,9 +14700,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3426734118176793614}
-        m_TargetAssemblyTypeName: NPCFunction, Assembly-CSharp
-        m_MethodName: OpenShop
+      - m_Target: {fileID: 3426734117024123710}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: OpenBagUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18409,7 +18409,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3426734118176793614}
         m_TargetAssemblyTypeName: NPCFunction, Assembly-CSharp
         m_MethodName: OpenShop
         m_Mode: 1

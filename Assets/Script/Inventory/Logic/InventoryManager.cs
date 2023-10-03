@@ -195,8 +195,7 @@ public class InventoryManager : Singleton<InventoryManager>
                 currentList[fromIndex] = currentItem;
             else
                 currentList[fromIndex]=new InventoryItem();
-            if (currentItem.itemAmount>1)
-                currentItem.itemAmount=1;
+            currentItem.itemAmount=1;
             targetList[targetIndex] = currentItem;
             EventHandler.CallUpdateInventoryUI(locationFrom, currentList);
             EventHandler.CallUpdateInventoryUI(locationTarget, targetList);

@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,7 +44,6 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, ID
         isSelected = false;
         if (itemDetails == null)
         {
-            //Debug.Log("!");
             UpdateEmptySlot();
         }
     }
@@ -73,7 +73,7 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, ID
             isSelected = false;
 
             inventoryUI.UpdateSlotHightlight(-1);
-            // EventHandler.CallItemSelectedEvent(itemDetails, isSelected);
+            EventHandler.CallItemSelectedEvent(itemDetails, isSelected);
         }
         itemDetails = null;
         slotImage.enabled = false;
@@ -145,7 +145,7 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, ID
             else if (slotType == SlotType.Bag && targetSlot.slotType == SlotType.Box) //献祭
             {
                 if (targetSlot.itemAmount == 1) return;
-                if (itemDetails.itemID < 1016 && itemDetails.itemID > 1005)
+                if (itemDetails.itemID < 1017 && itemDetails.itemID > 1004)
                     EventHandler.CallShowAltarUI(Location, slotIndex, targetSlot.Location, targetSlot.slotIndex);
             }
             else if (slotType != SlotType.Shop && targetSlot.slotType != SlotType.Shop && slotType != targetSlot.slotType)
