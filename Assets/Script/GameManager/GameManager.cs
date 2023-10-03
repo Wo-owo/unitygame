@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour
     public int baseLuck;//基础幸运值
     public int additionLuck;//附加幸运值
     //public int 
-    public enum Luckday{
-        angel,devil,normal
+    public enum Luckday
+    {
+        angel, devil, normal
     }
     public Luckday luckday;//幸运日
 
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
     public SlotUI fishingRod;//鱼竿栏
     public SlotUI bait;//鱼饵
 
+    public int PlayerSleepTime = 360;
+    public int PlayerSleepCount;
     // public List<SlotUI> altarSlots= new List<SlotUI>();//献祭格子
 
     private void Awake()
@@ -54,8 +57,22 @@ public class GameManager : MonoBehaviour
     {
         itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
         ClassifyFishes();
+        //添加未睡觉事件
+        TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
+        {
+            PlayerSleepCount++; 
+            if (PlayerSleepCount >= 3)
+            {
+                PlayerSleepCount = 0;
+                PlayerSleepTime -= 60;
+            }
+        });
     }
-
+    //睡觉按钮触发事件
+    public void PlayerSleep()
+    {
+        TimeManager.Instance.PlayerSleep(PlayerSleepTime);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -77,9 +94,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 鱼分类
     /// </summary>
-    private void ClassifyFishes(){
-        float _standardWeight= 2f;//衡量好鱼的重量标注
-        foreach(var _item in itemDataList_SO.itemDetailsList){
+    private void ClassifyFishes()
+    {
+        float _standardWeight = 2f;//衡量好鱼的重量标注
+        foreach (var _item in itemDataList_SO.itemDetailsList)
+        {
 
             //根据鱼种类分类
             // if(_item.itemType == ItemType.smallFish){
@@ -98,11 +117,14 @@ public class GameManager : MonoBehaviour
             // }
 
             //根据重量划分
-            if(_item.itemType == ItemType.Fish){
-                if(_item.itemWeight>=_standardWeight){
+            if (_item.itemType == ItemType.Fish)
+            {
+                if (_item.itemWeight >= _standardWeight)
+                {
                     goodFishes.Add(_item);
                 }
-                else{
+                else
+                {
                     badFishes.Add(_item);
                 }
                 allFishes.Add(_item);
@@ -131,37 +153,41 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log(_type);
         List<ItemDetails> _temp = new();
-        if(luckday==Luckday.angel){
+        if (luckday == Luckday.angel)
+        {
             _temp = goodFishes;
         }
-        else if(luckday==Luckday.devil){
+        else if (luckday == Luckday.devil)
+        {
             _temp = badFishes;
         }
-        else if(luckday==Luckday.normal){
+        else if (luckday == Luckday.normal)
+        {
             _temp = allFishes;
         }
-        
-        foreach (var _fish in _temp){
-            if (_fish.itemLucky < baseLuck+additionLuck && _fish.itemType == _type)
+
+        foreach (var _fish in _temp)
+        {
+            if (_fish.itemLucky < baseLuck + additionLuck && _fish.itemType == _type)
             {
                 _weight += _fish.itemLucky;
-                }
+            }
         }
         int randomValue = Random.Range(0, _weight);
         foreach (var _fish in _temp)
         {
-            if (_fish.itemLucky < baseLuck+additionLuck && _fish.itemType == _type)
+            if (_fish.itemLucky < baseLuck + additionLuck && _fish.itemType == _type)
             {
                 randomValue -= _fish.itemLucky;
                 if (randomValue <= 0)
                 {
                     Debug.Log("钓上了id:" + _fish.itemID + "的" + _fish.itemName);
-                    _fish.itemWeight += Random.Range(-1,2);//随机重量
+                    _fish.itemWeight += Random.Range(-1, 2);//随机重量
                     return _fish;//返回鱼
                 }
             }
         }
-        
+
         return null;
     }
 
@@ -177,18 +203,22 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 今日是天使还是恶魔
     /// </summary>
-    public void LuckChange_Day(){
+    public void LuckChange_Day()
+    {
         additionLuck = 0;
-        int a = Random.Range(0,100);
-        if(a<20){
+        int a = Random.Range(0, 100);
+        if (a < 20)
+        {
             luckday = Luckday.angel;
-            additionLuck+=5;
+            additionLuck += 5;
         }
-        else if(a>80){
+        else if (a > 80)
+        {
             luckday = Luckday.devil;
-            additionLuck-=5;
+            additionLuck -= 5;
         }
-        else{
+        else
+        {
             luckday = Luckday.normal;
         }
         CountLucky();
@@ -219,7 +249,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         //根据幸运值计算钓鱼时间
-        MiniGameManager.Instance.DescTimeMax = 100-(baseLuck+additionLuck)+Random.Range(0,10);
+        MiniGameManager.Instance.DescTimeMax = 100 - (baseLuck + additionLuck) + Random.Range(0, 10);
 
         MiniGameManager.Instance.StartGame(Id);
         enabled = false;
@@ -232,7 +262,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("钓鱼完成,钓鱼结果:" + MiniResult.ToString());
             var fish = AddFishes(MiniResult);
-            if(fish != null)
+            if (fish != null)
             {
                 InventoryManager.Instance.AddItem(fish.itemID, 1);
             }
@@ -244,7 +274,7 @@ public class GameManager : MonoBehaviour
         enabled = true;
         MiniGame = null;
     }
-    
+
     // /// <summary>
     // /// 开始献祭
     // /// </summary>
@@ -252,13 +282,13 @@ public class GameManager : MonoBehaviour
     //     int _temp = 0;
     //     foreach(var _slot in altarSlots){
     //         if(_slot.itemDetails.itemType == ItemType.Fish){
-                
+
     //             if(_slot.itemDetails.itemType == ItemType.smallFish){
     //                 _temp +=2;
     //             }
     //         }
     //         else if(_slot.itemDetails==null){
-                
+
     //         }
     //     }
     //     baseLuck+=_temp;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,7 +12,9 @@ public class TimeManager : Singleton<TimeManager>
     public GameTimeDate Game_Time = new GameTimeDate();
     public float TimeTimingUnit;
     float _timeTiming;
+    public TMP_Text mP_Text;
     public readonly Dictionary<int, UnityAction> Hour_Event = new();
+    public readonly Dictionary<string, UnityAction> Day_Event = new();
     /// <summary>
     /// 添加指定时间[0,24)小时区间发生事件
     /// </summary>
@@ -44,20 +47,30 @@ public class TimeManager : Singleton<TimeManager>
     protected override void Awake()
     {
         base.Awake();
+        //监听小时改变事件
         Game_Time.HourChanged += (h) =>
         {
             if (Hour_Event.ContainsKey(h))
                 Hour_Event[h]?.Invoke();
-        };//监听小时改变事件
-        var action = new UnityAction(() => Debug.Log("该睡觉了"));
-        TakeInHourEvent(20, action);//添加20点睡觉
+        };
+        //监听天改变事件
+        Game_Time.DayChanged += () =>
+        {
+            foreach (var item in Day_Event.Values)
+            {
+                item?.Invoke();
+            }
+        };
+        // var action = new UnityAction(() => Debug.Log("该睡觉了"));
+        //TakeInHourEvent(20, action);//添加20点睡觉
         //DeleteHourEvent(1, action);//移除事件
-        StartTimer(10);
+        // StartTimer(10);
     }
     public bool Stop = false;
     // Update is called once per frame
     void Update()
     {
+        mP_Text.text = $"当前时间 {Game_Time}";
         if (Stop)
         {
             return;
@@ -73,7 +86,7 @@ public class TimeManager : Singleton<TimeManager>
             Debug.Log($"计时结束,当前游戏时间{Game_Time}");
             Timer = null;
         }
-        if (canvas != null && Stop == false&& isSleep==true)
+        if (canvas != null && Stop == false && isSleep == true)
         {
             foreach (Canvas c in canvas)
             {
@@ -100,9 +113,9 @@ public class TimeManager : Singleton<TimeManager>
         }
         Task.Run(async () =>
         {
-            await Task.Delay(3000); 
+            await Task.Delay(3000);
             Stop = false;
-            Game_Time.AddMinute(m,false);
+            Game_Time.AddMinute(m, false);
         });
     }
     /// <summary>
@@ -117,7 +130,6 @@ public class TimeManager : Singleton<TimeManager>
     }
     private void OnGUI()
     {
-        GUI.Label(new Rect(0, 0, 200, 30), Game_Time.ToString());
         if (isSleep)
         {
             GUI.Box(new Rect(0, 0, UnityEngine.Screen.width, UnityEngine.Screen.height), "一段时间过去了.....");
@@ -173,6 +185,7 @@ public class GameTimeDate
                 day = 0;
                 Month++;
             }
+            DayChanged?.Invoke();
         }
     }//24
     public int Month
@@ -195,6 +208,7 @@ public class GameTimeDate
         }
     }//12
     public event UnityAction<int> HourChanged;
+    public event UnityAction DayChanged;
     public GameTimeDate()
     {
     }
@@ -205,7 +219,7 @@ public class GameTimeDate
             Minute++;
         }
     }
-    public void AddMinute(int m,bool trigeerEvent)
+    public void AddMinute(int m, bool trigeerEvent)
     {
         if (trigeerEvent)
         {
