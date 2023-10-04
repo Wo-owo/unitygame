@@ -4,6 +4,7 @@ using UnityEditor.ShaderGraph;
 using UnityEngine;
 using System.Linq;
 using System.Xml;
+using UnityEngine.Events;
 
 /// <summary>
 /// 游戏控制器
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour, ISave
 
     public int PlayerSleepTime = 360;
     public int PlayerSleepCount;
+    public bool Debuff = false;
     // public List<SlotUI> altarSlots= new List<SlotUI>();//献祭格子
 
     private void Awake()
@@ -69,11 +71,50 @@ public class GameManager : MonoBehaviour, ISave
                 PlayerSleepTime -= 60;
             }
         });
+        Debug.Log("测试");
+        //游戏开始时给拷贝一份
+        WakeUpTime = TimeManager.Instance.Game_Time.Copy();
+        WakeUpTime.AddMinute(1, false);
+        //每小时判断当前时间与上一次睡觉时间是否有12小时
+        TimeManager.Instance.Game_Time.HourChangedAll += () =>
+        {
+            if (WakeUpTime.GetToMinute() > 0 && TimeManager.Instance.Game_Time - WakeUpTime >= 720)
+            {
+                Debuff = true;
+                WakeUpTime = new GameTimeDate();
+                var time = TimeManager.Instance.Game_Time.Copy();
+                time.AddMinute(Random.Range(3, 6) * 60, false);
+                var hour = time.Hour;
+                TimeManager.Instance.TakeInHourEvent(hour, () =>
+                {
+                    if (Debuff == true)
+                    {
+                        Debug.Log($"疲劳,当前时间{TimeManager.Instance.Game_Time}");
+                        TimeManager.Instance.PlayerSleep(60);
+                        var e = TimeManager.Instance.Hour_Event[hour];
+                        TimeManager.Instance.Hour_Event[hour] = null;
+                        var time1 = TimeManager.Instance.Game_Time.Copy();
+                        time1.AddMinute(Random.Range(3, 6) * 60, false);
+                        hour = time1.Hour;
+                        Debug.Log($"下次疲劳,{time1}");
+                        TimeManager.Instance.Hour_Event[hour] = e;
+                    }
+                    else
+                    {
+                        TimeManager.Instance.Hour_Event[hour] = null;
+                    }
+                });
+            }
+        };
     }
+    public GameTimeDate WakeUpTime;
     //睡觉按钮触发事件
     public void PlayerSleep()
     {
         TimeManager.Instance.PlayerSleep(PlayerSleepTime);
+        Debuff = false;
+        WakeUpTime = TimeManager.Instance.Game_Time.Copy();
+        WakeUpTime.AddMinute(PlayerSleepTime, false);
     }
     // Update is called once per frame
     void Update()
@@ -279,7 +320,7 @@ public class GameManager : MonoBehaviour, ISave
 
     public void Save()
     {
-       
+
     }
 
     public void Load(string path)

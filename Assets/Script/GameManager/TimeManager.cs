@@ -74,7 +74,7 @@ public class TimeManager : Singleton<TimeManager>, ISave
     // Update is called once per frame
     void Update()
     {
-        //  mP_Text.text = $"当前时间 {Game_Time}";
+        mP_Text.text = $"当前时间 {Game_Time}";
         if (Stop)
         {
             return;
@@ -158,7 +158,6 @@ public class TimeManager : Singleton<TimeManager>, ISave
 
     public void Load(string path)
     {
-        path = (Application.streamingAssetsPath + "/Time.xml").Replace('/', '\\');
         var xml = XDocument.Load(path);
         Game_Time = JsonUtility.FromJson<GameTimeDate>(xml.Root.Value);
     }
@@ -194,12 +193,13 @@ public class GameTimeDate
         get => hour; set
         {
             hour = value;
-            if (hour == 24)
+            if (hour == 12)
             {
                 hour = 0;
                 Day++;
             }
             HourChanged?.Invoke(hour);
+            HourChangedAll?.Invoke();
         }
     }//60
     public int Day
@@ -235,6 +235,7 @@ public class GameTimeDate
         }
     }//12
     public event UnityAction<int> HourChanged;
+    public event UnityAction HourChangedAll;
     public event UnityAction DayChanged;
     public GameTimeDate()
     {
@@ -279,8 +280,8 @@ public class GameTimeDate
         return time;
     }
     public override string ToString() => $"{Year}年 {Month + 1}月 {Day + 1}日 {(Hour >= 10 ? Hour : $"0{Hour}")}:{(Minute >= 10 ? Minute : $"0{Minute}")}";
-
-    public int GetToMinute() => minute + hour * 60 + day * 60 * 24 + month * 60 * 24 * 30 + year * 60 * 24 * 30 * 12;
+    public GameTimeDate Copy() => new(this.GetToMinute());
+    public int GetToMinute() => minute + hour * 60 + day * 60 * 12 + month * 60 * 12 * 30 + year * 60 * 12 * 30 * 12;
     public static bool operator >=(GameTimeDate a, GameTimeDate b)
     {
         return a.year >= b.Year && a.month >= b.month && a.day >= b.day && a.hour >= b.hour && a.minute >= b.minute;
@@ -288,5 +289,13 @@ public class GameTimeDate
     public static bool operator <=(GameTimeDate a, GameTimeDate b)
     {
         return a.year <= b.Year && a.month <= b.month && a.day <= b.day && a.hour <= b.hour && a.minute <= b.minute;
+    }
+    public static int operator +(GameTimeDate a, GameTimeDate b)
+    {
+        return a.GetToMinute() + b.GetToMinute();
+    }
+    public static int operator -(GameTimeDate a, GameTimeDate b)
+    {
+        return a.GetToMinute() - b.GetToMinute();
     }
 }

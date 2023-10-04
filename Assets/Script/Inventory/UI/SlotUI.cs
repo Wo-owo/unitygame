@@ -58,7 +58,9 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, ID
         itemDetails = item;
         slotImage.sprite = item.itemIcon;
         itemAmount = amount;
-        amountText.text = amount.ToString();
+        if (itemAmount == 1) amountText.enabled = false;
+        else
+            amountText.text = amount.ToString();
         slotImage.enabled = true;
         button.interactable = true;
     }
@@ -158,5 +160,5 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, ID
             inventoryUI.UpdateSlotHightlight(-1);
         }
     }
-    
+
 }

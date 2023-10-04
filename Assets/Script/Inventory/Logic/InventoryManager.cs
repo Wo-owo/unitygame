@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -49,7 +50,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public void AddItem(Item item, bool toDestory)
     {
         //是否已经有该物品
-        var index = GetItemIndexInBag(item.itemID);
+        int index = GetItemIndexInBag(item.itemID);
 
         AddItemAtIndex(item.itemID, index, 1);
 
@@ -71,9 +72,11 @@ public class InventoryManager : Singleton<InventoryManager>
     public void AddItem(int itemId, int itemCount)
     {
         //是否已经有该物品
-        int index = GetItemIndexInBag(itemId);
+        //int index = GetItemIndexInBag(itemId);
+        //用重载的新方法
+        ItemDetails itemDetails = GetItemDetails(itemId);
 
-        AddItemAtIndex(itemId, index, itemCount);
+        AddItemAtIndex(itemId, itemDetails, itemCount);
 
         //Debug.Log(GetItemDetails(item.itemID).itemID + "Name: " + GetItemDetails(item.itemID).itemName);
 
@@ -111,6 +114,8 @@ public class InventoryManager : Singleton<InventoryManager>
         return -1;
     }
 
+
+
     /// <summary>
     /// 在指定背包序号位置添加物品
     /// </summary>
@@ -119,24 +124,74 @@ public class InventoryManager : Singleton<InventoryManager>
     /// <param name="amount">数量</param>
     private void AddItemAtIndex(int ID, int index, int amount)
     {
-        if (index == -1 && CheckBagCapacity())    //背包没有这个物品 同时背包有空位
+
         {
-            var item = new InventoryItem { itemID = ID, itemAmount = amount };
-            for (int i = 0; i < playerBag.itemList.Count; i++)
+            if (index == -1 && CheckBagCapacity())    //背包没有这个物品 同时背包有空位
             {
-                if (playerBag.itemList[i].itemID == 0)
+                InventoryItem item = new InventoryItem { itemID = ID, itemAmount = amount };
+                for (int i = 0; i < playerBag.itemList.Count; i++)
                 {
-                    playerBag.itemList[i] = item;
-                    break;
+                    if (playerBag.itemList[i].itemID == 0)
+                    {
+                        playerBag.itemList[i] = item;
+                        break;
+                    }
                 }
             }
+            else    //背包有这个物品
+            {
+                int currentAmount = playerBag.itemList[index].itemAmount + amount;
+                InventoryItem item = new InventoryItem { itemID = ID, itemAmount = currentAmount };
+                playerBag.itemList[index] = item;
+            }
         }
-        else    //背包有这个物品
-        {
-            int currentAmount = playerBag.itemList[index].itemAmount + amount;
-            var item = new InventoryItem { itemID = ID, itemAmount = currentAmount };
 
-            playerBag.itemList[index] = item;
+    }
+
+    /// <summary>
+    /// 在指定背包序号位置添加物品
+    /// </summary>
+    /// <param name="ID">物品ID</param>
+    /// <param name="index">序号</param>
+    /// <param name="amount">数量</param>
+    private void AddItemAtIndex(int ID, ItemDetails itemDetails, int amount)
+    {
+        int index = GetItemIndexInBag(itemDetails.itemID);
+        if (itemDetails.itemType == ItemType.Bait)
+        {
+            if (index == -1 && CheckBagCapacity())    //背包没有这个物品 同时背包有空位
+            {
+                InventoryItem item = new InventoryItem { itemID = ID, itemAmount = amount };
+                for (int i = 0; i < playerBag.itemList.Count; i++)
+                {
+                    if (playerBag.itemList[i].itemID == 0)
+                    {
+                        playerBag.itemList[i] = item;
+                        break;
+                    }
+                }
+            }
+            else    //背包有这个物品
+            {
+                int currentAmount = playerBag.itemList[index].itemAmount + amount;
+                InventoryItem item = new InventoryItem { itemID = ID, itemAmount = currentAmount };
+                playerBag.itemList[index] = item;
+            }
+        }
+        else
+        {
+            while (amount-- > 0 && CheckBagCapacity())
+            {
+                InventoryItem item = new InventoryItem { itemID = ID, itemAmount = 1 };
+                for (int i = 0; i < playerBag.itemList.Count; i++)
+                {
+                    if (playerBag.itemList[i].itemID == 0)
+                    {
+                        playerBag.itemList[i] = item;
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -182,7 +237,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (locationFrom == InventoryLocation.Player && locationTarget == InventoryLocation.Box)
         {
             InventoryItem targetItem = targetList[targetIndex];
-            foreach(InventoryItem item in targetList)
+            foreach (InventoryItem item in targetList)
             {
                 if (item.itemID == currentItem.itemID)
                 {
@@ -194,8 +249,8 @@ public class InventoryManager : Singleton<InventoryManager>
             if (currentItem.itemAmount > 0)
                 currentList[fromIndex] = currentItem;
             else
-                currentList[fromIndex]=new InventoryItem();
-            currentItem.itemAmount=1;
+                currentList[fromIndex] = new InventoryItem();
+            currentItem.itemAmount = 1;
             targetList[targetIndex] = currentItem;
             EventHandler.CallUpdateInventoryUI(locationFrom, currentList);
             EventHandler.CallUpdateInventoryUI(locationTarget, targetList);
@@ -293,7 +348,7 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             if (CheckBagCapacity())
             {
-                AddItemAtIndex(itemDetails.itemID, index, amount);
+                AddItemAtIndex(itemDetails.itemID, itemDetails, amount);
             }
             playerMoney -= cost;
         }

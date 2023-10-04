@@ -4642,6 +4642,13 @@ MonoBehaviour:
   bait: {fileID: 0}
   PlayerSleepTime: 360
   PlayerSleepCount: 0
+  Debuff: 0
+  WakeUpTime:
+    minute: 0
+    hour: 0
+    day: 0
+    month: 0
+    year: 0
 --- !u!114 &956844082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5001,7 +5008,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1133154418}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002598410}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1133154418
 MonoBehaviour:
   m_ObjectHideFlags: 0
