@@ -8800,8 +8800,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5F53\u524D\u65F6\u95F4 0:00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a227b762a9b4f9f4aa02b13119f81dcb, type: 2}
-  m_sharedMaterial: {fileID: -7014195729264360103, guid: a227b762a9b4f9f4aa02b13119f81dcb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 53bf1346199c19848860943cefe3681d, type: 2}
+  m_sharedMaterial: {fileID: -4448637598437237812, guid: 53bf1346199c19848860943cefe3681d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
