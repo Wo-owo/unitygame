@@ -6,8 +6,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Xml;
+using UnityEngine.Rendering.VirtualTexturing;
+using System.IO;
+using System.Xml.Linq;
 
-public class TimeManager : Singleton<TimeManager>
+public class TimeManager : Singleton<TimeManager>, ISave
 {
     public GameTimeDate Game_Time = new GameTimeDate();
     public float TimeTimingUnit;
@@ -70,7 +74,7 @@ public class TimeManager : Singleton<TimeManager>
     // Update is called once per frame
     void Update()
     {
-        mP_Text.text = $"当前时间 {Game_Time}";
+        //  mP_Text.text = $"当前时间 {Game_Time}";
         if (Stop)
         {
             return;
@@ -130,10 +134,33 @@ public class TimeManager : Singleton<TimeManager>
     }
     private void OnGUI()
     {
+        GUI.Label(new Rect(0, 0, 300, 50), Game_Time.ToString());
         if (isSleep)
         {
             GUI.Box(new Rect(0, 0, UnityEngine.Screen.width, UnityEngine.Screen.height), "一段时间过去了.....");
         }
+    }
+
+    public void Save()
+    {
+        var path = (Application.streamingAssetsPath + "/Time.xml").Replace('/', '\\');
+        if (!File.Exists(path))
+        {
+            File.Create(path);
+        }
+        XmlDocument xml = new XmlDocument();
+        var root = xml.CreateElement("Time");
+        root.SetAttribute("type", "GameTimeDate");
+        root.InnerText = JsonUtility.ToJson(Game_Time);
+        xml.AppendChild(root);
+        xml.Save(path);
+    }
+
+    public void Load(string path)
+    {
+        path = (Application.streamingAssetsPath + "/Time.xml").Replace('/', '\\');
+        var xml = XDocument.Load(path);
+        Game_Time = JsonUtility.FromJson<GameTimeDate>(xml.Root.Value);
     }
 }
 [Serializable]

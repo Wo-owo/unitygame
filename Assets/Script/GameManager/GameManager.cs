@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
+using System.Linq;
+using System.Xml;
 
 /// <summary>
 /// 游戏控制器
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISave
 {
     public static GameManager instance;
     public int baseLuck;//基础幸运值
@@ -273,6 +275,16 @@ public class GameManager : MonoBehaviour
         }
         enabled = true;
         MiniGame = null;
+    }
+
+    public void Save()
+    {
+       
+    }
+
+    public void Load(string path)
+    {
+        throw new System.NotImplementedException();
     }
 
     // /// <summary>
