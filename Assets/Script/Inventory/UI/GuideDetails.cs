@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ItemToolTip : MonoBehaviour
+public class GuideDetails : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI typeText;
@@ -12,33 +12,32 @@ public class ItemToolTip : MonoBehaviour
     [SerializeField] private Text moneyText;
     [SerializeField] private Text weightText;
     [SerializeField] private GameObject weightPart;
+    [SerializeField] private Text maxWeight;
+    [SerializeField] private Text times;
+    [SerializeField] private Image itemIcon;
 
-    public void SetupTooltip(ItemDetails itemDetails,SlotType slotType)
+    public void SetupTooltip(ItemDetails itemDetails, SlotType slotType)
     {
         if (itemDetails == null) return;
         nameText.text = itemDetails.itemName;
         typeText.text = GetItemType(itemDetails.itemType);
         descriptionText.text = itemDetails.itemDescription;
 
-        if (itemDetails.itemType == ItemType.Fish || itemDetails.itemType == ItemType.FishingRod || itemDetails.itemType == ItemType.Bait)
+        //weightPart.SetActive(true);
+        int price = itemDetails.itemPrice;
+        float weight = itemDetails.itemWeight;
+        if (slotType == SlotType.Bag)
         {
-            //weightPart.SetActive(true);
-            int price = itemDetails.itemPrice;
-            float weight=itemDetails.itemWeight;
-            if (slotType == SlotType.Bag)
-            {
-                price = (int)(price * itemDetails.sellPercentage);
-                
-            }
+            price = (int)(price * itemDetails.sellPercentage);
 
+        }
             moneyText.text = price.ToString();
-            weightText.text = "重量:"+weight.ToString()+"kg";
-        }
-        else
-        {
+        weightText.text = weight.ToString() + "kg";
+        times.text = itemDetails.foundTimes.ToString() + "次";
+        maxWeight.text = itemDetails.maxWeight.ToString() + "kg";
+        itemIcon.sprite = itemDetails.itemIcon;
             weightPart.SetActive(false);
-        }
-        if(itemDetails.itemType != ItemType.Fish)
+        if (itemDetails.itemType != ItemType.Fish)
         {
             weightPart.SetActive(false);
         }
@@ -49,7 +48,7 @@ public class ItemToolTip : MonoBehaviour
         return itemType switch
         {
             ItemType.Fish => "鱼类",
-            ItemType.rareFish => "稀有鱼",
+            ItemType.rareFish=>"珍稀鱼",
             ItemType.Bait => "饵料",
             ItemType.FishingRod => "钓竿",
             _ => "鱼类"

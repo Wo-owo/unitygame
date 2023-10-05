@@ -31,7 +31,7 @@ public class ItemDetails
     
     public Habitat habitat;//栖息地
     //是否钓到过
-    public bool isFound;
+    public int foundTimes;
 }
 [System.Serializable]
 public struct InventoryItem

@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
     {
         if (MiniGame == null)
         {
-            MiniGame = StartCoroutine(Fishing(1));
+            MiniGame = StartCoroutine(Fishing(1001));
         }
     }
 
