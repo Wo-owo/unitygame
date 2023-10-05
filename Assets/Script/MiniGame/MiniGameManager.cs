@@ -22,7 +22,6 @@ public class MiniGameManager : Singleton<MiniGameManager>
     public float Catch_Move_Speed;
     public float time;
     public float DescTimeMax;
-    public int fishID;
     public bool IsStart = false;
     public MiniResultType MiniResult;
     private Canvas canvas;
@@ -32,16 +31,19 @@ public class MiniGameManager : Singleton<MiniGameManager>
         base.Awake();
         canvas = transform.parent.GetComponent<Canvas>();
     }
-    public void StartGame(int ID)
+    public void StartGame(float level)
     {
         IsStart = true;
-        fishID = ID;
         time = 0;
         mProgressBar.Size = 0;
         CatchFish.LeaveCount = 0;
         Fish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
         CatchFish.transform.Translate(new Vector2(0, Random.Range(-100, 100)));
         canvas.targetDisplay = 0;
+        Catch_Move_Speed = 40 * level;
+        Fish.MoveSpeed = 1 * level;
+        CatchFish.CathcFish_AddValue = 0.001f * level;
+        CatchFish.CathcFish_DecValue = -0.001f * level;
     }
 
     private void Update()
@@ -77,7 +79,7 @@ public class MiniGameManager : Singleton<MiniGameManager>
         }
         else
         {
-            CatchFish.transform.Translate(Catch_Move_Speed * Time.deltaTime * -Vector2.up);
+            CatchFish.transform.Translate(Catch_Move_Speed * Time.deltaTime * Vector2.down);
         }
     }
     public void SetProgressBarValue(float value)
