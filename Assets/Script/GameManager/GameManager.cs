@@ -34,13 +34,14 @@ public class GameManager : MonoBehaviour
     public int PlayerSleepCount;
     // public List<SlotUI> altarSlots= new List<SlotUI>();//献祭格子
 
-    public int luckLevel=0;
     public int baseLuck;//基础幸运值
     public int additionLuck;//附加幸运值
-    public List<ItemDetails> lakeFishes= new List<ItemDetails>();//湖鱼
-    public List<ItemDetails> seaFishes = new List<ItemDetails>();//海鱼
+    //public List<ItemDetails> lakeFishes= new List<ItemDetails>();//湖鱼
+    //public List<ItemDetails> seaFishes = new List<ItemDetails>();//海鱼
     //public List<ItemDetails> allFishes = new List<ItemDetails>();//全部的鱼
     public List<ItemDetails> tempFishes = new List<ItemDetails>();
+    public ItemDetails rubbish;
+    
     public bool isBySea = true; // 默认在海边
     public int fishingLevel;
 
@@ -157,19 +158,31 @@ public class GameManager : MonoBehaviour
     {
 
         tempFishes.Clear();
+
+        int _temp = 0;
+        if(luckday==Luckday.angel){
+            _temp+=1;
+        }
+        else if(luckday==Luckday.devil){
+            _temp-=1;
+        }
+
+
         // 根据所在地选择鱼池
         //如果在海边
         if (isBySea)
         {
             tempFishes = itemDataList_SO.itemDetailsList
-                .Where(fish => (fish.habitat == ItemDetails.Habitat.sea || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
+                .Where(fish => (fish.habitat == ItemDetails.Habitat.sea || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel+_temp)
                 .ToList();
+            
         }
         else
         {
             tempFishes = itemDataList_SO.itemDetailsList
-                .Where(fish => (fish.habitat == ItemDetails.Habitat.lake || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
+                .Where(fish => (fish.habitat == ItemDetails.Habitat.lake || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel+_temp)
                 .ToList();
+            
         }
         Debug.Log("抽取鱼");
         
@@ -249,7 +262,7 @@ public class GameManager : MonoBehaviour
         {
             luckday = Luckday.normal;
         }
-        CountLucky();
+        //CountLucky();
     }
 
 
