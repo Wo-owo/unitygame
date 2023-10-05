@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
     {
         if (MiniGame == null)
         {
-            MiniGame = StartCoroutine(Fishing(1001));
+            MiniGame = StartCoroutine(Fishing(1f));
         }
     }
 
@@ -322,13 +322,13 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 钓鱼的小游戏
     /// </summary>
-    IEnumerator Fishing(int Id)
+    IEnumerator Fishing(float level)
     {
         yield return null;
         //根据幸运值计算钓鱼时间
         MiniGameManager.Instance.DescTimeMax = 100 - (baseLuck + additionLuck) + Random.Range(0, 10);
 
-        MiniGameManager.Instance.StartGame(Id);
+        MiniGameManager.Instance.StartGame(level);
         enabled = false;
         while (MiniGameManager.Instance.IsStart)
         {
