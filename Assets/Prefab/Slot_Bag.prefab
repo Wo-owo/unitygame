@@ -224,7 +224,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a5cb685c125fc407d811a3b6411cbe23, type: 3}
+  m_Sprite: {fileID: -1824605447, guid: 5c3fb8d552426744bb28e7615d673a8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -306,9 +306,14 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 0
+    maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
+    isFound: 0
   itemAmount: 0
 --- !u!114 &7138577555037017422
 MonoBehaviour:
