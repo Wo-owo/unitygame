@@ -20,10 +20,7 @@ public class FishMove : MonoBehaviour
     {
         if (!MiniGameManager.Instance.IsStart)
             return;
-        if (!OnMove)
-        {
-            StartCoroutine(Move());
-        }
+        transform.Translate(new Vector2(0, Random.Range(-MoveSpeed, MoveSpeed)) * Time.deltaTime);
         if (transform.localPosition.y < yMin)
         {
             transform.localPosition = new Vector2(0, yMin);
@@ -32,17 +29,5 @@ public class FishMove : MonoBehaviour
         {
             transform.localPosition = new Vector2(0, yMax);
         }
-    }
-    bool OnMove;
-    IEnumerator Move()
-    {
-        OnMove = true;
-        var vec = new Vector3(0, Random.Range(yMin, yMax));
-        while (Vector3.Distance(transform.localPosition, vec) >= 0.1)
-        {  
-            transform.localPosition = Vector3.Lerp(transform.localPosition, vec, 0.01f);
-            yield return null;
-        }
-        OnMove = false;
     }
 }

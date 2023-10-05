@@ -77,7 +77,7 @@ public class MiniGameManager : Singleton<MiniGameManager>
         }
         else
         {
-            CatchFish.transform.Translate(Catch_Move_Speed * Time.deltaTime * Vector2.down);
+            CatchFish.transform.Translate(Catch_Move_Speed * Time.deltaTime * -Vector2.up);
         }
     }
     public void SetProgressBarValue(float value)
