@@ -826,6 +826,5 @@ MonoBehaviour:
   Catch_Move_Speed: 30
   time: 0
   DescTimeMax: 20
-  fishID: 0
   IsStart: 0
   MiniResult: 0
