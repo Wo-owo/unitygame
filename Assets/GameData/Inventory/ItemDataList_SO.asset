@@ -21,10 +21,13 @@ MonoBehaviour:
     itemDescription: "\u4E00\u6761\u9EC4\u8272\u7684\u9C7C"
     itemPrice: 10
     sellPercentage: 0.5
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1002
     itemName: "\u2018\u2019\u2018"
@@ -34,10 +37,13 @@ MonoBehaviour:
     itemDescription: "\u65E0"
     itemPrice: 999
     sellPercentage: 1
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1003
     itemName: 1
@@ -47,10 +53,13 @@ MonoBehaviour:
     itemDescription: 123456
     itemPrice: 8
     sellPercentage: 1
-    itemLucky: 2
     itemDurability: 0
     itemWeight: 1
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1004
     itemName: 2
@@ -60,10 +69,13 @@ MonoBehaviour:
     itemDescription: 123456
     itemPrice: 9
     sellPercentage: 1
-    itemLucky: 1
     itemDurability: 0
     itemWeight: 2
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1005
     itemName: "\u5C0F\u4E11\u9C7C"
@@ -73,10 +85,13 @@ MonoBehaviour:
     itemDescription: "\u662F\u5BF9\u96C0\u9CB7\u79D1\u6D77\u8475\u9C7C\u4E9A\u79D1\u9C7C\u7C7B\u7684\u4FD7\u79F0\uFF0C\u56E0\u4E3A\u8138\u4E0A\u90FD\u6709\u4E00\u6761\u6216\u4E24\u6761\u767D\u8272\u6761\u7EB9\uFF0C\u597D\u4F3C\u4EAC\u5267\u4E2D\u7684\u4E11\n\u89D2\u800C\u5F97\u540D\uFF0C\u662F\u4E00\u79CD\u70ED\u5E26\u54B8\u6C34\u9C7C\u3002"
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1006
     itemName: "\u73CD\u60DC\u9C7C_1"
@@ -86,10 +101,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1007
     itemName: "\u73CD\u60DC\u9C7C_2"
@@ -99,10 +117,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1008
     itemName: "\u73CD\u60DC\u9C7C_3"
@@ -112,10 +133,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1009
     itemName: "\u73CD\u60DC\u9C7C_4"
@@ -125,10 +149,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1010
     itemName: "\u73CD\u60DC\u9C7C_5"
@@ -138,10 +165,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1011
     itemName: "\u73CD\u60DC\u9C7C_6"
@@ -151,10 +181,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1012
     itemName: "\u73CD\u60DC\u9C7C_7"
@@ -164,10 +197,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1013
     itemName: "\u73CD\u60DC\u9C7C_8"
@@ -177,10 +213,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1014
     itemName: "\u73CD\u60DC\u9C7C_9"
@@ -190,10 +229,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1015
     itemName: "\u73CD\u60DC\u9C7C_10"
@@ -203,10 +245,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1016
     itemName: "\u73CD\u60DC\u9C7C_11"
@@ -216,10 +261,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1016
     itemName: "\u666E\u901A\u9C7C_0"
@@ -229,10 +277,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1017
     itemName: "\u666E\u901A\u9C7C_1"
@@ -242,10 +293,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1018
     itemName: "\u666E\u901A\u9C7C_2"
@@ -255,10 +309,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1019
     itemName: "\u666E\u901A\u9C7C_3"
@@ -268,10 +325,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1020
     itemName: "\u666E\u901A\u9C7C_4"
@@ -281,10 +341,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1021
     itemName: "\u666E\u901A\u9C7C_5"
@@ -294,10 +357,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1022
     itemName: "\u666E\u901A\u9C7C_6"
@@ -307,10 +373,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1023
     itemName: "\u666E\u901A\u9C7C_7"
@@ -320,10 +389,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1024
     itemName: "\u666E\u901A\u9C7C_8"
@@ -333,10 +405,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1025
     itemName: "\u666E\u901A\u9C7C_9"
@@ -346,10 +421,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1026
     itemName: "\u666E\u901A\u9C7C_10"
@@ -359,10 +437,13 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0
   - itemID: 1027
     itemName: "\u666E\u901A\u9C7C_11"
@@ -372,8 +453,11 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
-    itemLucky: 0
     itemDurability: 0
     itemWeight: 1.5
     maxWeight: 0
+    minWeight: 0
+    itemChance: 0
+    rareDegree: 0
+    habitat: 0
     isFound: 0

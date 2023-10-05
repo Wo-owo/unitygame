@@ -29,9 +29,6 @@ public class ItemDetails
     public int itemChance;//概率
     public int rareDegree;//稀有程度
     
-    public enum Habitat{
-        lake,sea,everywhere
-    }
     public Habitat habitat;//栖息地
     //是否钓到过
     public bool isFound;

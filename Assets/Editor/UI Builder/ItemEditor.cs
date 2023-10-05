@@ -173,6 +173,13 @@ public class ItemEditor : EditorWindow
             activeItem.itemType = (ItemType)evt.newValue;
         });
 
+        itemDetailsSection.Q<EnumField>("ItemHabitat").Init(activeItem.habitat);
+        itemDetailsSection.Q<EnumField>("ItemHabitat").value = activeItem.habitat;
+        itemDetailsSection.Q<EnumField>("ItemHabitat").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.habitat = (Habitat)evt.newValue;
+        });
+
         itemDetailsSection.Q<TextField>("Description").value = activeItem.itemDescription;
         itemDetailsSection.Q<TextField>("Description").RegisterValueChangedCallback(evt =>
         {
@@ -189,6 +196,11 @@ public class ItemEditor : EditorWindow
         itemDetailsSection.Q<FloatField>("Weight").RegisterValueChangedCallback(evt =>
         {
             activeItem.itemWeight = evt.newValue;
+        });
+        itemDetailsSection.Q<FloatField>("MaxWeight").value = activeItem.maxWeight;
+        itemDetailsSection.Q<FloatField>("MaxWeight").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.maxWeight = evt.newValue;
         });
 
         //itemDetailsSection.Q<Toggle>("CanDropped").value = activeItem.canDropped;
