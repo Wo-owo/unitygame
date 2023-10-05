@@ -49,9 +49,10 @@ public class ItemToolTip : MonoBehaviour
         return itemType switch
         {
             ItemType.Fish => "鱼类",
+            ItemType.rareFish => "稀有鱼",
             ItemType.Bait => "饵料",
             ItemType.FishingRod => "钓竿",
-            _ => "无"
+            _ => "鱼类"
         };
     }
 }

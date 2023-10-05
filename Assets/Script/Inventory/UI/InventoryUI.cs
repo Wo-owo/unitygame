@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     public ItemToolTip itemToolTip;
+    public GameObject rarePage;
+    public GameObject bigPage;
+    public GameObject smallPage;
     
     public ItemDataList_SO itemList;
 
@@ -24,7 +27,7 @@ public class InventoryUI : MonoBehaviour
     [Header("图鉴")]
     public GameObject guideUI;
     public GameObject guideSlotPrefab;
-    public ItemToolTip guideDetails;
+    public GuideDetails guideDetails;
 
     [Header("交易UI")]
     public TradeUI tradeUI;
@@ -60,13 +63,26 @@ public class InventoryUI : MonoBehaviour
         altarDetails.gameObject.SetActive(true);
         altarDetails.SetupAltarUI(locationFrom, fromIndex, locationTarget, targetIndex);
     }
-
     private void Awake()
     {
         foreach (ItemDetails item in itemList.itemDetailsList)
         {
-            GuideUI guiSlot = Instantiate(guideSlotPrefab, guideUI.transform).GetComponent<GuideUI>();
-            guiSlot.itemDetails = item;
+            item.foundTimes = 1;
+            if (item.itemType == ItemType.rareFish)
+            {
+                GuideUI guiSlot = Instantiate(guideSlotPrefab, rarePage.transform).GetComponent<GuideUI>();
+                guiSlot.itemDetails = item;
+            }
+            if (item.itemType == ItemType.bigFish)
+            {
+                GuideUI guiSlot = Instantiate(guideSlotPrefab, bigPage.transform).GetComponent<GuideUI>();
+                guiSlot.itemDetails = item;
+            }
+            if (item.itemType == ItemType.smallFish)
+            {
+                GuideUI guiSlot = Instantiate(guideSlotPrefab, smallPage.transform).GetComponent<GuideUI>();
+                guiSlot.itemDetails = item;
+            }
         }
     }
 
@@ -129,10 +145,11 @@ public class InventoryUI : MonoBehaviour
 
         if (slotType == SlotType.Shop)
         {
-            bagUI.GetComponent<RectTransform>().pivot = new Vector2(-0.5f, 0.5f);
+            //bagUI.GetComponent<RectTransform>().pivot = new Vector2(-0.5f, 0.5f);
             bagUI.SetActive(true);
             bagOpened = true;
         }
+        LayoutRebuilder.ForceRebuildLayoutImmediate(bagUI.GetComponent<RectTransform>());
         //更新UI显示
         OnUpdateInventoryUI(InventoryLocation.Shop, bagData.itemList);
     }
