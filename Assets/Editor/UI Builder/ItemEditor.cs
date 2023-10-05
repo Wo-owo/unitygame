@@ -179,10 +179,10 @@ public class ItemEditor : EditorWindow
             activeItem.itemDescription = evt.newValue;
         });
 
-        itemDetailsSection.Q<IntegerField>("Lucky").value = activeItem.itemLucky;
+        itemDetailsSection.Q<IntegerField>("Lucky").value = activeItem.itemChance;
         itemDetailsSection.Q<IntegerField>("Lucky").RegisterValueChangedCallback(evt =>
         {
-            activeItem.itemLucky = evt.newValue;
+            activeItem.itemChance = evt.newValue;
         });
 
         itemDetailsSection.Q<FloatField>("Weight").value = activeItem.itemWeight;

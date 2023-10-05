@@ -19,13 +19,20 @@ public class ItemDetails
     [Range(0, 1)]
     public float sellPercentage;
 
-    public int itemLucky;
+
     //耐久度
     public float itemDurability;
 
     public float itemWeight;
     public float maxWeight;
-
+    public float minWeight;
+    public int itemChance;//概率
+    public int rareDegree;//稀有程度
+    
+    public enum Habitat{
+        lake,sea,everywhere
+    }
+    public Habitat habitat;//栖息地
     //是否钓到过
     public bool isFound;
 }

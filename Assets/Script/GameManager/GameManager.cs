@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using System.Linq;
-using System.Xml;
-using UnityEngine.Events;
-
+using UnityEngine.UI;
 /// <summary>
 /// 游戏控制器
 /// </summary>
-public class GameManager : MonoBehaviour, ISave
+public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int baseLuck;//基础幸运值
-    public int additionLuck;//附加幸运值
+
     //public int 
     public enum Luckday
     {
@@ -21,9 +18,7 @@ public class GameManager : MonoBehaviour, ISave
     }
     public Luckday luckday;//幸运日
 
-    public List<ItemDetails> goodFishes = new List<ItemDetails>();//好的鱼
-    public List<ItemDetails> badFishes = new List<ItemDetails>();//差的鱼
-    public List<ItemDetails> allFishes = new List<ItemDetails>();//全部的鱼
+ 
 
     // public GameObject fishPrefab;//鱼的预制体
     public GameObject fishingUI;//钓鱼得小游戏
@@ -37,8 +32,21 @@ public class GameManager : MonoBehaviour, ISave
 
     public int PlayerSleepTime = 360;
     public int PlayerSleepCount;
-    public bool Debuff = false;
     // public List<SlotUI> altarSlots= new List<SlotUI>();//献祭格子
+
+    public int luckLevel=0;
+    public int baseLuck;//基础幸运值
+    public int additionLuck;//附加幸运值
+    public List<ItemDetails> lakeFishes= new List<ItemDetails>();//湖鱼
+    public List<ItemDetails> seaFishes = new List<ItemDetails>();//海鱼
+    //public List<ItemDetails> allFishes = new List<ItemDetails>();//全部的鱼
+    public List<ItemDetails> tempFishes = new List<ItemDetails>();
+    public bool isBySea = true; // 默认在海边
+    public int fishingLevel;
+
+    public Text locationText; // 用于显示当前所在地的文本
+    public Button switchLocationButton; // 切换所在地的按钮,Debug用
+    
 
     private void Awake()
     {
@@ -60,7 +68,7 @@ public class GameManager : MonoBehaviour, ISave
     void Start()
     {
         itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
-        ClassifyFishes();
+        //ClassifyFishes();
         //添加未睡觉事件
         TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
         {
@@ -71,50 +79,11 @@ public class GameManager : MonoBehaviour, ISave
                 PlayerSleepTime -= 60;
             }
         });
-        Debug.Log("测试");
-        //游戏开始时给拷贝一份
-        WakeUpTime = TimeManager.Instance.Game_Time.Copy();
-        WakeUpTime.AddMinute(1, false);
-        //每小时判断当前时间与上一次睡觉时间是否有12小时
-        TimeManager.Instance.Game_Time.HourChangedAll += () =>
-        {
-            if (WakeUpTime.GetToMinute() > 0 && TimeManager.Instance.Game_Time - WakeUpTime >= 720)
-            {
-                Debuff = true;
-                WakeUpTime = new GameTimeDate();
-                var time = TimeManager.Instance.Game_Time.Copy();
-                time.AddMinute(Random.Range(3, 6) * 60, false);
-                var hour = time.Hour;
-                TimeManager.Instance.TakeInHourEvent(hour, () =>
-                {
-                    if (Debuff == true)
-                    {
-                        Debug.Log($"疲劳,当前时间{TimeManager.Instance.Game_Time}");
-                        TimeManager.Instance.PlayerSleep(60);
-                        var e = TimeManager.Instance.Hour_Event[hour];
-                        TimeManager.Instance.Hour_Event[hour] = null;
-                        var time1 = TimeManager.Instance.Game_Time.Copy();
-                        time1.AddMinute(Random.Range(3, 6) * 60, false);
-                        hour = time1.Hour;
-                        Debug.Log($"下次疲劳,{time1}");
-                        TimeManager.Instance.Hour_Event[hour] = e;
-                    }
-                    else
-                    {
-                        TimeManager.Instance.Hour_Event[hour] = null;
-                    }
-                });
-            }
-        };
     }
-    public GameTimeDate WakeUpTime;
     //睡觉按钮触发事件
     public void PlayerSleep()
     {
         TimeManager.Instance.PlayerSleep(PlayerSleepTime);
-        Debuff = false;
-        WakeUpTime = TimeManager.Instance.Game_Time.Copy();
-        WakeUpTime.AddMinute(PlayerSleepTime, false);
     }
     // Update is called once per frame
     void Update()
@@ -134,104 +103,120 @@ public class GameManager : MonoBehaviour, ISave
         }
     }
 
+    void SwitchLocation()
+    {
+        // 切换所在地
+        isBySea = !isBySea;
+
+        // 更新显示
+        locationText.text = isBySea ? "海边" : "湖边";
+    }
     /// <summary>
     /// 鱼分类
     /// </summary>
     private void ClassifyFishes()
     {
-        float _standardWeight = 2f;//衡量好鱼的重量标注
-        foreach (var _item in itemDataList_SO.itemDetailsList)
-        {
+        // // 根据所在地选择鱼池
+        // //如果在海边
+        // if (isBySea)
+        // {
+        //     tempFishes = itemDataList_SO.itemDetailsList
+        //         .Where(fish => (fish.habitat == ItemDetails.Habitat.sea || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
+        //         .ToList();
+        // }
+        // else
+        // {
+        //     tempFishes = itemDataList_SO.itemDetailsList
+        //         .Where(fish => (fish.habitat == ItemDetails.Habitat.lake || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
+        //         .ToList();
+        // }
 
-            //根据鱼种类分类
-            // if(_item.itemType == ItemType.smallFish){
-            //     badFishes.Add(_item);
-            // }
-            // else if(_item.itemType == ItemType.bigFish){
-            //     if(_item.itemWeight>_standardWeight){
-            //         goodFishes.Add(_item);
-            //     }
-            //     else{
-            //         badFishes.Add(_item);
-            //     }
-            // }
-            // else if(_item.itemType == ItemType.rareFish){
-            //     goodFishes.Add(_item);
-            // }
+        // // 使用加权算法选择钓上的鱼
+        // ItemDetails caughtFish = WeightedRandomFish(fishPool);
 
-            //根据重量划分
-            if (_item.itemType == ItemType.Fish || _item.itemType == ItemType.smallFish || _item.itemType == ItemType.bigFish)
-            {
-                if (_item.itemWeight >= _standardWeight)
-                {
-                    goodFishes.Add(_item);
-                }
-                else
-                {
-                    badFishes.Add(_item);
-                }
-                allFishes.Add(_item);
-            }
-        }
+        // if (caughtFish != null)
+        // {
+        //     // 随机生成鱼的重量
+        //     float randomWeight = Random.Range(caughtFish.minWeight, caughtFish.maxWeight);
+        //     caughtFish.itemWeight = randomWeight;
+
+        //     // 测试输出
+        //     Debug.Log("钓上了: " + caughtFish.name + ", 重量: " + caughtFish.itemWeight + ",稀有度: " + caughtFish.rareDegree);
+        // }
+        // else
+        // {
+        //     // 没有匹配的鱼
+        //     Debug.Log("没有匹配的鱼");
+        // }
     }
+    
     /// <summary>
     /// 将鱼添加入背包
     /// </summary>
     public ItemDetails AddFishes(MiniResultType _result)
     {
+
+        tempFishes.Clear();
+        // 根据所在地选择鱼池
+        //如果在海边
+        if (isBySea)
+        {
+            tempFishes = itemDataList_SO.itemDetailsList
+                .Where(fish => (fish.habitat == ItemDetails.Habitat.sea || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
+                .ToList();
+        }
+        else
+        {
+            tempFishes = itemDataList_SO.itemDetailsList
+                .Where(fish => (fish.habitat == ItemDetails.Habitat.lake || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
+                .ToList();
+        }
         Debug.Log("抽取鱼");
-        int _weight = 0;//权重
-        ItemType _type = new();//类型
+        
+        int totalWeight = 0;//权重
+        
+        //Debug.Log(_type);
+        foreach (ItemDetails fish in tempFishes)
+        {
+            totalWeight += fish.itemChance;
+        }
+
+        // 生成一个随机数
+        int a=0;
         switch (_result)
         {
             case MiniResultType.普通成功:
-                _type = ItemType.smallFish;
+                //_type = ItemType.smallFish;
+                a = Random.Range(0, totalWeight);
                 break;
             case MiniResultType.完美钓起:
-                _type = ItemType.bigFish;
+                a = Random.Range(totalWeight/2, totalWeight);
+                break;
+            case MiniResultType.钓鱼失败:
+                //直接返回一个垃圾()
+                //return 
                 break;
             default:
                 Debug.Log("其他情况");
                 break;
         }
-        Debug.Log(_type);
-        List<ItemDetails> _temp = new();
-        if (luckday == Luckday.angel)
-        {
-            _temp = goodFishes;
-        }
-        else if (luckday == Luckday.devil)
-        {
-            _temp = badFishes;
-        }
-        else if (luckday == Luckday.normal)
-        {
-            _temp = allFishes;
-        }
 
-        foreach (var _fish in _temp)
+        // 使用加权算法选择鱼
+        int cumulativeWeight = 0;
+        foreach (ItemDetails fish in tempFishes)
         {
-            if (_fish.itemLucky < baseLuck + additionLuck && _fish.itemType == _type)
+            cumulativeWeight += fish.itemChance;
+            if (a < cumulativeWeight)
             {
-                _weight += _fish.itemLucky;
-            }
-        }
-        int randomValue = Random.Range(0, _weight);
-        foreach (var _fish in _temp)
-        {
-            if (_fish.itemLucky < baseLuck + additionLuck && _fish.itemType == _type)
-            {
-                randomValue -= _fish.itemLucky;
-                if (randomValue <= 0)
-                {
-                    Debug.Log("钓上了id:" + _fish.itemID + "的" + _fish.itemName);
-                    _fish.itemWeight += Random.Range(-1, 2);//随机重量
-                    return _fish;//返回鱼
-                }
+                fish.itemWeight = Random.Range(fish.minWeight,fish.maxWeight);
+                return fish;
             }
         }
 
+        // 如果出现问题，返回 null 或者默认鱼类
         return null;
+
+        
     }
 
     /// <summary>
@@ -275,11 +260,11 @@ public class GameManager : MonoBehaviour, ISave
     {
         if (bait.itemDetails != null)//如果存在鱼饵
         {
-            additionLuck += fishingRod.itemDetails.itemLucky + bait.itemDetails.itemLucky;
+            additionLuck += fishingRod.itemDetails.itemChance + bait.itemDetails.itemChance;
         }
         else if (bait.itemDetails == null)//如果不存在鱼饵
         {
-            additionLuck = fishingRod.itemDetails.itemLucky;
+            additionLuck = fishingRod.itemDetails.itemChance;
         }
 
     }
@@ -318,32 +303,4 @@ public class GameManager : MonoBehaviour, ISave
         MiniGame = null;
     }
 
-    public void Save()
-    {
-
-    }
-
-    public void Load(string path)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    // /// <summary>
-    // /// 开始献祭
-    // /// </summary>
-    // public void StartAltar(){
-    //     int _temp = 0;
-    //     foreach(var _slot in altarSlots){
-    //         if(_slot.itemDetails.itemType == ItemType.Fish){
-
-    //             if(_slot.itemDetails.itemType == ItemType.smallFish){
-    //                 _temp +=2;
-    //             }
-    //         }
-    //         else if(_slot.itemDetails==null){
-
-    //         }
-    //     }
-    //     baseLuck+=_temp;
-    // }
 }

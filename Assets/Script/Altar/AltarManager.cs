@@ -44,23 +44,20 @@ public class AltarManager : MonoBehaviour
             if(_slot.itemDetails!=null){
                 Debug.Log("有鱼");
                 //if(_slot.itemDetails.itemType == ItemType.Fish){
-                
-                    if(_slot.itemDetails.itemType == ItemType.smallFish){
-                        _temp +=1;
-                    }
-                    else if(_slot.itemDetails.itemType == ItemType.bigFish){
-                        _temp +=5;
-                    }
-                    else if(_slot.itemDetails.itemType == ItemType.rareFish){
-                        _temp +=10;
-                    }
-                    
-                //}
-                else if(_slot.itemDetails==null){
-                
-                }
+                _temp++;
             }
-            
+        }
+        if(_temp>10){
+            GameManager.instance.luckLevel = 3;
+        }
+        if(_temp>7){
+            GameManager.instance.luckLevel = 2;
+        }
+        if(_temp>3){
+            GameManager.instance.luckLevel = 1;
+        }
+        else{
+            GameManager.instance.luckLevel = 0;
         }
         GameManager.instance.baseLuck += _temp;
 
