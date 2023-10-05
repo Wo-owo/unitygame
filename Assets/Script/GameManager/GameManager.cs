@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
             {
                 Debuff = true;
                 WakeUpTime = new GameTimeDate();
-                var time = TimeManager.Instance.Game_Time.Copy();
+                GameTimeDate time = TimeManager.Instance.Game_Time.Copy();
                 time.AddMinute(Random.Range(3, 6) * 60, false);
                 var hour = time.Hour;
                 TimeManager.Instance.TakeInHourEvent(hour, () =>
@@ -126,11 +126,6 @@ public class GameManager : MonoBehaviour
         Debuff = false;
         WakeUpTime = TimeManager.Instance.Game_Time.Copy();
         WakeUpTime.AddMinute(PlayerSleepTime, false);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     Coroutine MiniGame = null;
