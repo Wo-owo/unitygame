@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public SlotUI fishingRod;//鱼竿栏
     public SlotUI bait;//鱼饵
-
+    public InventoryBag_SO playerbag;//玩家背包
     public int PlayerSleepTime = 360;
     public int PlayerSleepCount;
     public bool Debuff = false;
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     public ItemDetails rubbish;
     
     public bool isBySea = true; // 默认在海边
-    public int fishingLevel;
+    public int fishingLevel;//钓鱼等级
 
     public Text locationText; // 用于显示当前所在地的文本
     public Button switchLocationButton; // 切换所在地的按钮,Debug用
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
                 Debuff = true;
                 WakeUpTime = new GameTimeDate();
                 GameTimeDate time = TimeManager.Instance.Game_Time.Copy();
-                time.AddMinute(Random.Range(3, 6) * 60, false);
+                time.AddMinute(UnityEngine.Random.Range(3, 6) * 60, false);
                 var hour = time.Hour;
                 TimeManager.Instance.TakeInHourEvent(hour, () =>
                 {
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
                         var e = TimeManager.Instance.Hour_Event[hour];
                         TimeManager.Instance.Hour_Event[hour] = null;
                         var time1 = TimeManager.Instance.Game_Time.Copy();
-                        time1.AddMinute(Random.Range(3, 6) * 60, false);
+                        time1.AddMinute(UnityEngine.Random.Range(3, 6) * 60, false);
                         hour = time1.Hour;
                         Debug.Log($"下次疲劳,{time1}");
                         TimeManager.Instance.Hour_Event[hour] = e;
@@ -236,10 +237,10 @@ public class GameManager : MonoBehaviour
         {
             case MiniResultType.普通成功:
                 //_type = ItemType.smallFish;
-                a = Random.Range(0, totalWeight);
+                a = UnityEngine.Random.Range(0, totalWeight);
                 break;
             case MiniResultType.完美钓起:
-                a = Random.Range(totalWeight/2, totalWeight);
+                a = UnityEngine.Random.Range(totalWeight/2, totalWeight);
                 break;
             case MiniResultType.钓鱼失败:
                 //直接返回一个垃圾()
@@ -257,7 +258,7 @@ public class GameManager : MonoBehaviour
             cumulativeWeight += fish.itemChance;
             if (a < cumulativeWeight)
             {
-                fish.itemWeight = Random.Range(fish.minWeight,fish.maxWeight);
+                fish.itemWeight = UnityEngine.Random.Range(fish.minWeight,fish.maxWeight);
                 return fish;
             }
         }
@@ -273,7 +274,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int DropDice(int _a, int _min, int _max)
     {
-        _a = Random.Range(_min, _max);
+        _a = UnityEngine.Random.Range(_min, _max);
         return _a;
     }
 
@@ -283,7 +284,7 @@ public class GameManager : MonoBehaviour
     public void LuckChange_Day()
     {
         additionLuck = 0;
-        int a = Random.Range(0, 100);
+        int a = UnityEngine.Random.Range(0, 100);
         if (a < 20)
         {
             luckday = Luckday.angel;
@@ -307,14 +308,34 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void CountLucky()
     {
-        if (bait.itemDetails != null)//如果存在鱼饵
-        {
-            additionLuck += fishingRod.itemDetails.itemChance + bait.itemDetails.itemChance;
+        additionLuck = 0;
+        foreach(var _item in playerbag.itemList){
+            ItemDetails item = InventoryManager.Instance.GetItemDetails(_item.itemID);
+            if(item.itemType==ItemType.Bait){
+                additionLuck+=item.itemLuck;
+            }
+            if(item.itemType==ItemType.FishingRod){
+                additionLuck+=item.itemLuck;
+            }
+            
         }
-        else if (bait.itemDetails == null)//如果不存在鱼饵
-        {
-            additionLuck = fishingRod.itemDetails.itemChance;
+        if(luckday==Luckday.angel){
+            additionLuck+=20;
         }
+        else if(luckday==Luckday.devil){
+            additionLuck-=10;
+        }
+
+
+        
+        // if (bait.itemDetails != null)//如果存在鱼饵
+        // {
+        //     additionLuck += fishingRod.itemDetails.itemChance + bait.itemDetails.itemChance;
+        // }
+        // else if (bait.itemDetails == null)//如果不存在鱼饵
+        // {
+        //     additionLuck = fishingRod.itemDetails.itemChance;
+        // }
 
     }
 
@@ -326,7 +347,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         //根据幸运值计算钓鱼时间
-        MiniGameManager.Instance.DescTimeMax = 100 - (baseLuck + additionLuck) + Random.Range(0, 10);
+        MiniGameManager.Instance.DescTimeMax = 100 - (baseLuck + additionLuck) ;
 
         MiniGameManager.Instance.StartGame(Id);
         enabled = false;
