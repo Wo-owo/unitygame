@@ -10651,8 +10651,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u70B9\u51FB\u629B\u7AFF"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e37e54ee1384d9940be2242252b56e95, type: 2}
-  m_sharedMaterial: {fileID: -3046587072450226739, guid: e37e54ee1384d9940be2242252b56e95, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12118,8 +12118,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5F53\u524D\u65F6\u95F4 0:00"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e37e54ee1384d9940be2242252b56e95, type: 2}
-  m_sharedMaterial: {fileID: -3046587072450226739, guid: e37e54ee1384d9940be2242252b56e95, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18689,8 +18689,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: B
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e37e54ee1384d9940be2242252b56e95, type: 2}
-  m_sharedMaterial: {fileID: -3046587072450226739, guid: e37e54ee1384d9940be2242252b56e95, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19400,6 +19400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDataList_SO: {fileID: 11400000, guid: 28404f3012314bf4c91df1beea08b2d4, type: 2}
   playerBag: {fileID: 11400000, guid: ca706848ddea3bf4ba054729a9f3418c, type: 2}
+  boatBag: {fileID: 0}
   altarList: {fileID: 11400000, guid: 3623a0870ba89444880302f46511cb08, type: 2}
   playerMoney: 300
 --- !u!1 &3426734118176793609

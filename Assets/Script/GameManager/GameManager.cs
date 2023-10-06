@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     }
     public Luckday luckday;//幸运日
 
- 
+
 
     // public GameObject fishPrefab;//鱼的预制体
     public GameObject fishingUI;//钓鱼得小游戏
@@ -44,14 +44,14 @@ public class GameManager : MonoBehaviour
     //public List<ItemDetails> allFishes = new List<ItemDetails>();//全部的鱼
     public List<ItemDetails> tempFishes = new List<ItemDetails>();
     public ItemDetails rubbish;
-    
+
     public bool isBySea = true; // 默认在海边
     public int fishingLevel;//钓鱼等级
 
     public Text locationText; // 用于显示当前所在地的文本
     public Button switchLocationButton; // 切换所在地的按钮,Debug用
-    
-    
+
+
     private void Awake()
     {
         if (instance == null)
@@ -76,11 +76,14 @@ public class GameManager : MonoBehaviour
         //添加未睡觉事件
         TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
         {
-            int a = UnityEngine.Random.Range(0,100);
-            if(a<20){
-                WeatherManager.instance.StartRain(true);    
+            int a = UnityEngine.Random.Range(0, 100);
+            if (a < 20)
+            {
+                WeatherManager.instance.StartRain(true);
             }
-            else {WeatherManager.instance.StartRain(true);    
+            else
+            {
+                WeatherManager.instance.StartRain(true);
             }
             PlayerSleepCount++;
             if (PlayerSleepCount >= 3)
@@ -192,7 +195,7 @@ public class GameManager : MonoBehaviour
         //     Debug.Log("没有匹配的鱼");
         // }
     }
-    
+
     /// <summary>
     /// 将鱼添加入背包
     /// </summary>
@@ -202,11 +205,13 @@ public class GameManager : MonoBehaviour
         tempFishes.Clear();
 
         int _temp = 0;
-        if(luckday==Luckday.angel){
-            _temp+=1;
+        if (luckday == Luckday.angel)
+        {
+            _temp += 1;
         }
-        else if(luckday==Luckday.devil){
-            _temp-=1;
+        else if (luckday == Luckday.devil)
+        {
+            _temp -= 1;
         }
 
 
@@ -215,21 +220,21 @@ public class GameManager : MonoBehaviour
         if (isBySea)
         {
             tempFishes = itemDataList_SO.itemDetailsList
-                .Where(fish => (fish.habitat == Habitat.sea || fish.habitat == Habitat.everywhere) && fish.rareDegree <= fishingLevel+_temp)
+                .Where(fish => (fish.habitat == Habitat.sea || fish.habitat == Habitat.everywhere) && fish.rareDegree <= fishingLevel + _temp)
                 .ToList();
-            
+
         }
         else
         {
             tempFishes = itemDataList_SO.itemDetailsList
-                .Where(fish => (fish.habitat == Habitat.lake || fish.habitat ==Habitat.everywhere) && fish.rareDegree <= fishingLevel+_temp)
+                .Where(fish => (fish.habitat == Habitat.lake || fish.habitat == Habitat.everywhere) && fish.rareDegree <= fishingLevel + _temp)
                 .ToList();
-            
+
         }
         Debug.Log("抽取鱼");
-        
+
         int totalWeight = 0;//权重
-        
+
         //Debug.Log(_type);
         foreach (ItemDetails fish in tempFishes)
         {
@@ -237,7 +242,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 生成一个随机数
-        int a=0;
+        int a = 0;
         switch (_result)
         {
             case MiniResultType.普通成功:
@@ -245,7 +250,7 @@ public class GameManager : MonoBehaviour
                 a = UnityEngine.Random.Range(0, totalWeight);
                 break;
             case MiniResultType.完美钓起:
-                a = UnityEngine.Random.Range(totalWeight/2, totalWeight);
+                a = UnityEngine.Random.Range(totalWeight / 2, totalWeight);
                 break;
             case MiniResultType.钓鱼失败:
                 //直接返回一个垃圾()
@@ -263,7 +268,7 @@ public class GameManager : MonoBehaviour
             cumulativeWeight += fish.itemChance;
             if (a < cumulativeWeight)
             {
-                fish.itemWeight = UnityEngine.Random.Range(fish.minWeight,fish.maxWeight);
+                fish.itemWeight = UnityEngine.Random.Range(fish.minWeight, fish.maxWeight);
                 return fish;
             }
         }
@@ -271,7 +276,7 @@ public class GameManager : MonoBehaviour
         // 如果出现问题，返回 null 或者默认鱼类
         return null;
 
-        
+
     }
 
     /// <summary>
@@ -314,25 +319,30 @@ public class GameManager : MonoBehaviour
     public void CountLucky()
     {
         additionLuck = 0;
-        foreach(var _item in playerbag.itemList){
+        foreach (var _item in playerbag.itemList)
+        {
             ItemDetails item = InventoryManager.Instance.GetItemDetails(_item.itemID);
-            if(item.itemType==ItemType.Bait){
-                additionLuck+=item.itemLuck;
+            if (item.itemType == ItemType.Bait)
+            {
+                additionLuck += item.itemLuck;
             }
-            if(item.itemType==ItemType.FishingRod){
-                additionLuck+=item.itemLuck;
+            if (item.itemType == ItemType.FishingRod)
+            {
+                additionLuck += item.itemLuck;
             }
-            
+
         }
-        if(luckday==Luckday.angel){
-            additionLuck+=20;
+        if (luckday == Luckday.angel)
+        {
+            additionLuck += 20;
         }
-        else if(luckday==Luckday.devil){
-            additionLuck-=10;
+        else if (luckday == Luckday.devil)
+        {
+            additionLuck -= 10;
         }
 
 
-        
+
         // if (bait.itemDetails != null)//如果存在鱼饵
         // {
         //     additionLuck += fishingRod.itemDetails.itemChance + bait.itemDetails.itemChance;
@@ -352,7 +362,7 @@ public class GameManager : MonoBehaviour
     {
         yield return null;
         //根据幸运值计算钓鱼时间
-        MiniGameManager.Instance.DescTimeMax = 100 - (baseLuck + additionLuck) ;
+        //  MiniGameManager.Instance.DescTimeMax = 100 - (baseLuck + additionLuck);
 
         MiniGameManager.Instance.StartGame(Id);
         enabled = false;
@@ -361,7 +371,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         MiniResult = MiniGameManager.Instance.MiniResult;
-        if (MiniResult != MiniResultType.异常)
+        if (MiniResult != MiniResultType.异常 && MiniResult != MiniResultType.钓鱼失败)
         {
             Debug.Log("钓鱼完成,钓鱼结果:" + MiniResult.ToString());
             var fish = AddFishes(MiniResult);
@@ -373,6 +383,10 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("什么都没有钓上");
             }
+        }
+        else
+        {
+
         }
         enabled = true;
         MiniGame = null;
