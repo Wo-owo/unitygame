@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     public Text locationText; // 用于显示当前所在地的文本
     public Button switchLocationButton; // 切换所在地的按钮,Debug用
     
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -76,6 +76,12 @@ public class GameManager : MonoBehaviour
         //添加未睡觉事件
         TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
         {
+            int a = UnityEngine.Random.Range(0,100);
+            if(a<20){
+                WeatherManager.instance.StartRain(true);    
+            }
+            else {WeatherManager.instance.StartRain(true);    
+            }
             PlayerSleepCount++;
             if (PlayerSleepCount >= 3)
             {
