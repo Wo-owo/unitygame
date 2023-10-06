@@ -367,6 +367,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -1465,6 +1466,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -1627,6 +1629,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -4958,6 +4961,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -5914,6 +5918,7 @@ MonoBehaviour:
   itemDataList_SO: {fileID: 11400000, guid: 28404f3012314bf4c91df1beea08b2d4, type: 2}
   fishingRod: {fileID: 0}
   bait: {fileID: 0}
+  playerbag: {fileID: 11400000, guid: ca706848ddea3bf4ba054729a9f3418c, type: 2}
   PlayerSleepTime: 360
   PlayerSleepCount: 0
   Debuff: 0
@@ -5929,6 +5934,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -6525,6 +6531,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -6783,6 +6790,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -7603,6 +7611,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -7917,6 +7926,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -8294,6 +8304,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -8768,6 +8779,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -9580,6 +9592,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -12465,6 +12478,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -14514,6 +14528,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -14631,6 +14646,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -14745,6 +14761,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -15409,6 +15426,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -15446,6 +15464,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -15858,6 +15877,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -15895,6 +15915,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -15997,6 +16018,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -16145,6 +16167,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -16182,6 +16205,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -16219,6 +16243,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -17413,6 +17438,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -17606,6 +17632,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -18296,6 +18323,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -18333,6 +18361,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
@@ -18638,6 +18667,7 @@ MonoBehaviour:
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
+    itemLuck: 0
     itemDurability: 0
     itemWeight: 0
     maxWeight: 0
