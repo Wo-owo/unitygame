@@ -34,6 +34,7 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI playerMoneyText;
 
     [SerializeField] private SlotUI[] playerSlots;
+    //[SerializeField] private SlotUI[] boatSlots;
     [SerializeField] private List<SlotUI> baseBagSlots;
     [Header("祭坛")]
     public SlotUI[] altarSlots;
@@ -100,6 +101,10 @@ public class InventoryUI : MonoBehaviour
         {
             altarSlots[i].slotIndex = i;
         }
+        //for (int i = 0; i < boatSlots.Length; i++)
+        //{
+        //    boatSlots[i].slotIndex = i;
+        //}
     }
 
     private void Update()

@@ -9,6 +9,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public ItemDataList_SO itemDataList_SO;
     [Header("背包数据")]
     public InventoryBag_SO playerBag;
+    public InventoryBag_SO boatBag;
     public InventoryBag_SO altarList;
 
     [Header("交易")]

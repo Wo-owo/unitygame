@@ -10,7 +10,7 @@ public class FishMove : MonoBehaviour
     private void Start()
     {
         MiniGameManager.Instance.Fish = this;
-        var size = transform.parent.GetComponent<RectTransform>().sizeDelta;
+        var size = transform.parent.GetChild(0).GetComponent<RectTransform>().sizeDelta;
         var mHeight = transform.GetComponent<RectTransform>().sizeDelta.y / 2;
         yMax = size.y / 2 - mHeight;
         yMin = -size.y / 2 + mHeight;
