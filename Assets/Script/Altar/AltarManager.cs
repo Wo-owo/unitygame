@@ -56,9 +56,6 @@ public class AltarManager : MonoBehaviour
         if(_temp>3){
             GameManager.instance.fishingLevel = 1;
         }
-        else{
-            GameManager.instance.fishingLevel = 0;
-        }
         GameManager.instance.baseLuck += _temp;
 
     }
