@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
                 PlayerSleepTime -= 60;
             }
         });
-        Debug.Log("测试");
         //游戏开始时给拷贝一份
         WakeUpTime = TimeManager.Instance.Game_Time.Copy();
         WakeUpTime.AddMinute(1, false);
