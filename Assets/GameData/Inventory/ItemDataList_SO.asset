@@ -99,10 +99,10 @@ MonoBehaviour:
     habitat: 1
     foundTimes: 1
   - itemID: 1006
-    itemName: "\u73CD\u60DC\u9C7C_1"
+    itemName: "\u6E7F\u5783\u573E"
     itemIcon: {fileID: -179151772, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -179151772, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 3
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
@@ -116,10 +116,10 @@ MonoBehaviour:
     habitat: 0
     foundTimes: 1
   - itemID: 1007
-    itemName: "\u73CD\u60DC\u9C7C_2"
+    itemName: "\u6CE5\u9CC5 "
     itemIcon: {fileID: -1664953180, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1664953180, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 3
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
@@ -128,15 +128,15 @@ MonoBehaviour:
     itemWeight: 1.5
     maxWeight: 0
     minWeight: 0
-    itemChance: 0
+    itemChance: 1
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1008
-    itemName: "\u73CD\u60DC\u9C7C_3"
+    itemName: "\u79CB\u5200\u9C7C "
     itemIcon: {fileID: -1235130153, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1235130153, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 3
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
@@ -145,15 +145,15 @@ MonoBehaviour:
     itemWeight: 1.5
     maxWeight: 0
     minWeight: 0
-    itemChance: 0
+    itemChance: 1
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1009
-    itemName: "\u73CD\u60DC\u9C7C_4"
+    itemName: "\u9EC4\u82B1\u9C7C "
     itemIcon: {fileID: 1055881157, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: 1055881157, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 2
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
@@ -162,12 +162,12 @@ MonoBehaviour:
     itemWeight: 1.5
     maxWeight: 0
     minWeight: 0
-    itemChance: 0
+    itemChance: 1
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1010
-    itemName: "\u73CD\u60DC\u9C7C_5"
+    itemName: "\u6C99\u4E01\u9C7C "
     itemIcon: {fileID: -1359555207, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1359555207, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemType: 5
@@ -179,46 +179,46 @@ MonoBehaviour:
     itemWeight: 1.5
     maxWeight: 0
     minWeight: 0
-    itemChance: 0
+    itemChance: 1
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1011
-    itemName: "\u73CD\u60DC\u9C7C_6"
+    itemName: "\u9752\u82B1\u9C7C "
     itemIcon: {fileID: -936784430, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -936784430, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 3
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
     itemLuck: 0
     itemDurability: 0
-    itemWeight: 1.5
-    maxWeight: 0
+    itemWeight: 1
+    maxWeight: 1.5
     minWeight: 0
-    itemChance: 0
+    itemChance: 1
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1012
-    itemName: "\u73CD\u60DC\u9C7C_7"
+    itemName: "\u9CDF\u9C7C "
     itemIcon: {fileID: -1379023057, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1379023057, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 2
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
     itemLuck: 0
     itemDurability: 0
     itemWeight: 1.5
-    maxWeight: 0
+    maxWeight: 1.5
     minWeight: 0
     itemChance: 0
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1013
-    itemName: "\u73CD\u60DC\u9C7C_8"
+    itemName: "\u9C88\u9C7C"
     itemIcon: {fileID: -1224752380, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1224752380, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemType: 5
@@ -235,24 +235,24 @@ MonoBehaviour:
     habitat: 0
     foundTimes: 1
   - itemID: 1014
-    itemName: "\u73CD\u60DC\u9C7C_9"
+    itemName: "\u9C91\u9C7C"
     itemIcon: {fileID: -1068052667, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: -1068052667, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
-    itemType: 5
+    itemType: 0
     itemDescription: 
     itemPrice: 0
     sellPercentage: 0
     itemLuck: 0
     itemDurability: 0
     itemWeight: 1.5
-    maxWeight: 0
+    maxWeight: 2
     minWeight: 0
     itemChance: 0
     rareDegree: 0
     habitat: 0
     foundTimes: 1
   - itemID: 1015
-    itemName: "\u73CD\u60DC\u9C7C_10"
+    itemName: "\u65B9\u5934\u9C7C "
     itemIcon: {fileID: 249119176, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemOnWorldSprite: {fileID: 249119176, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
     itemType: 5

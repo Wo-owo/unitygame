@@ -5,6 +5,8 @@ using UnityEditor.ShaderGraph;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using TMPro;
 
 /// <summary>
 /// 游戏控制器
@@ -45,13 +47,16 @@ public class GameManager : MonoBehaviour
     public List<ItemDetails> tempFishes = new List<ItemDetails>();
     public ItemDetails rubbish;
 
-    public bool isBySea = true; // 默认在海边
+    
     public int fishingLevel;//钓鱼等级
+    
+    public TMP_Text locationText; // 用于显示当前所在地的文本
+    public UnityEngine.UI.Button switchLocationButton; // 切换所在地的按钮,Debug用
 
-    public Text locationText; // 用于显示当前所在地的文本
-    public Button switchLocationButton; // 切换所在地的按钮,Debug用
-
-
+    public UnityEngine.UI.Image lakeImg;//湖边背景图片
+    public  UnityEngine.UI.Image seaImg;//海边背景图片
+    // public  UnityEngine.UI.Image backGroundImg;//背景图片
+    public bool isBySea = true; // 默认在海边
     private void Awake()
     {
         if (instance == null)
@@ -71,19 +76,23 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        locationText.text = isRain?"海边":"湖边";
         itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
         //ClassifyFishes();
         //添加未睡觉事件
         TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
         {
+            //判定天气
             int a = UnityEngine.Random.Range(0, 100);
             if (a < 20)
             {
                 WeatherManager.instance.StartRain(true);
+                isRain=true;
             }
             else
             {
                 WeatherManager.instance.StartRain(true);
+                isRain=false;
             }
             PlayerSleepCount++;
             if (PlayerSleepCount >= 3)
@@ -91,6 +100,8 @@ public class GameManager : MonoBehaviour
                 PlayerSleepCount = 0;
                 PlayerSleepTime -= 60;
             }
+
+            LuckChange_Day();//判定今天是幸运日
         });
         //游戏开始时给拷贝一份
         WakeUpTime = TimeManager.Instance.Game_Time.Copy();
@@ -149,51 +160,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SwitchLocation()
+    /// <summary>
+    /// 切换地点
+    /// </summary>
+    public void SwitchLocation()
     {
         // 切换所在地
         isBySea = !isBySea;
 
         // 更新显示
         locationText.text = isBySea ? "海边" : "湖边";
+        if(isBySea){
+             seaImg.gameObject.SetActive(true);
+        }
+        else {
+            seaImg.gameObject.SetActive(false);
+        }
+
     }
+    public bool isRain;
     /// <summary>
-    /// 鱼分类
+    /// 改变天气
     /// </summary>
-    private void ClassifyFishes()
+    public void WeatherChange()
     {
-        // // 根据所在地选择鱼池
-        // //如果在海边
-        // if (isBySea)
-        // {
-        //     tempFishes = itemDataList_SO.itemDetailsList
-        //         .Where(fish => (fish.habitat == ItemDetails.Habitat.sea || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
-        //         .ToList();
-        // }
-        // else
-        // {
-        //     tempFishes = itemDataList_SO.itemDetailsList
-        //         .Where(fish => (fish.habitat == ItemDetails.Habitat.lake || fish.habitat == ItemDetails.Habitat.everywhere) && fish.rareDegree <= fishingLevel)
-        //         .ToList();
-        // }
-
-        // // 使用加权算法选择钓上的鱼
-        // ItemDetails caughtFish = WeightedRandomFish(fishPool);
-
-        // if (caughtFish != null)
-        // {
-        //     // 随机生成鱼的重量
-        //     float randomWeight = Random.Range(caughtFish.minWeight, caughtFish.maxWeight);
-        //     caughtFish.itemWeight = randomWeight;
-
-        //     // 测试输出
-        //     Debug.Log("钓上了: " + caughtFish.name + ", 重量: " + caughtFish.itemWeight + ",稀有度: " + caughtFish.rareDegree);
-        // }
-        // else
-        // {
-        //     // 没有匹配的鱼
-        //     Debug.Log("没有匹配的鱼");
-        // }
+        isRain=!isRain;
+        WeatherManager.instance.StartRain(isRain);
     }
 
     /// <summary>
@@ -322,6 +314,7 @@ public class GameManager : MonoBehaviour
         foreach (var _item in playerbag.itemList)
         {
             ItemDetails item = InventoryManager.Instance.GetItemDetails(_item.itemID);
+            
             if (item.itemType == ItemType.Bait)
             {
                 additionLuck += item.itemLuck;
@@ -340,18 +333,6 @@ public class GameManager : MonoBehaviour
         {
             additionLuck -= 10;
         }
-
-
-
-        // if (bait.itemDetails != null)//如果存在鱼饵
-        // {
-        //     additionLuck += fishingRod.itemDetails.itemChance + bait.itemDetails.itemChance;
-        // }
-        // else if (bait.itemDetails == null)//如果不存在鱼饵
-        // {
-        //     additionLuck = fishingRod.itemDetails.itemChance;
-        // }
-
     }
 
     MiniResultType MiniResult = MiniResultType.异常;
