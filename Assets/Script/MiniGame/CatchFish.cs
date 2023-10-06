@@ -26,7 +26,7 @@ public class CatchFish : MonoBehaviour
     {
         MiniGameManager.Instance.CatchFish = this;
         FishChanged += MiniGameManager.Instance.SetProgressBarValue;
-        var size = transform.parent.GetComponent<RectTransform>().sizeDelta;
+        var size = transform.parent.GetChild(0).GetComponent<RectTransform>().sizeDelta;
         var mHeight = transform.GetComponent<RectTransform>().sizeDelta.y / 2;
         yMax = size.y / 2 - mHeight;
         yMin = -size.y / 2 + mHeight;
