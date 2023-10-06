@@ -76,7 +76,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        locationText.text = isRain?"海边":"湖边";
+        isBySea=false;
+        locationText.text = isBySea?"海边":"湖边";
+        fishingLevel=1;
         itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
         //ClassifyFishes();
         //添加未睡觉事件
@@ -206,7 +208,6 @@ public class GameManager : MonoBehaviour
             _temp -= 1;
         }
 
-
         // 根据所在地选择鱼池
         //如果在海边
         if (isBySea)
@@ -214,7 +215,7 @@ public class GameManager : MonoBehaviour
             tempFishes = itemDataList_SO.itemDetailsList
                 .Where(fish => (fish.habitat == Habitat.sea || fish.habitat == Habitat.everywhere) && fish.rareDegree <= fishingLevel + _temp)
                 .ToList();
-
+            
         }
         else
         {
@@ -223,7 +224,11 @@ public class GameManager : MonoBehaviour
                 .ToList();
 
         }
-        Debug.Log("抽取鱼");
+        string debugInfo = "";
+        foreach(var _fish in tempFishes){
+            debugInfo+=_fish.itemName+",";
+        }
+        Debug.Log("抽取鱼:"+debugInfo);
 
         int totalWeight = 0;//权重
 
@@ -261,6 +266,7 @@ public class GameManager : MonoBehaviour
             if (a < cumulativeWeight)
             {
                 fish.itemWeight = UnityEngine.Random.Range(fish.minWeight, fish.maxWeight);
+                Debug.Log("钓上了"+fish.itemName);
                 return fish;
             }
         }
