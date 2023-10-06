@@ -19,6 +19,7 @@ public class ItemDetails
     [Range(0, 1)]
     public float sellPercentage;
 
+    public int itemLuck;
 
     //ÄÍ¾Ã¶È
     public float itemDurability;
