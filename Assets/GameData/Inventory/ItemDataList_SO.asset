@@ -27,7 +27,7 @@ MonoBehaviour:
     maxWeight: 0
     minWeight: 0
     itemChance: 0
-    rareDegree: 0
+    rareDegree: 1
     habitat: 1
     foundTimes: 1
   - itemID: 1002

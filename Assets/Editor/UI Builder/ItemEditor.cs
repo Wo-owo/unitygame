@@ -140,6 +140,11 @@ public class ItemEditor : EditorWindow
         {
             activeItem.itemID = evt.newValue;
         });
+        itemDetailsSection.Q<IntegerField>("RareDegree").value = activeItem.rareDegree;
+        itemDetailsSection.Q<IntegerField>("RareDegree").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.rareDegree = evt.newValue;
+        });
 
         itemDetailsSection.Q<TextField>("ItemName").value = activeItem.itemName;
         itemDetailsSection.Q<TextField>("ItemName").RegisterValueChangedCallback(evt =>

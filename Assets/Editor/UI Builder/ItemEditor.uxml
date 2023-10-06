@@ -37,8 +37,9 @@
                     <ui:VisualElement name="Left" style="width: 50px; margin-right: 0; flex-grow: 1; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); margin-left: 2px; flex-direction: column;">
                         <ui:Label text="Details" display-tooltip-when-elided="true" name="Header" style="height: auto; padding-left: 5px; padding-top: 5px; padding-bottom: 5px; background-color: rgba(38, 38, 38, 0.91); -unity-font-style: bold; padding-right: 5px; font-size: 14px;" />
                         <uie:IntegerField label="Lucky" value="0" name="Lucky" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;" />
-                        <uie:FloatField label="Weight" value="42.2" name="Weight" />
+                        <uie:FloatField label="Weight" value="42.2" name="Weight" style="height: 17px;" />
                         <uie:FloatField label="MaxWeight" value="42.2" name="MaxWeight" />
+                        <uie:IntegerField label="RareDegree" value="0" name="RareDegree" style="padding-left: 3px; padding-right: 3px; padding-top: 3px; padding-bottom: 3px; -unity-text-align: middle-left;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="Right" style="width: 50px; margin-right: 0; flex-grow: 1; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); margin-left: 2px;">
                         <ui:Label text="Vendor" display-tooltip-when-elided="true" name="Header" style="height: auto; padding-left: 5px; padding-top: 5px; padding-bottom: 5px; background-color: rgba(38, 38, 38, 0.91); -unity-font-style: bold; padding-right: 5px; font-size: 14px;" />
