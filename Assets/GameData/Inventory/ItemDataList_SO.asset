@@ -125,7 +125,7 @@ MonoBehaviour:
     sellPercentage: 0
     itemLuck: 0
     itemDurability: 0
-    itemWeight: 0.3
+    itemWeight: 0.4933818
     maxWeight: 1
     minWeight: 0
     itemChance: 92
@@ -159,7 +159,7 @@ MonoBehaviour:
     sellPercentage: 0
     itemLuck: 0
     itemDurability: 0
-    itemWeight: 0.3
+    itemWeight: 0.51087886
     maxWeight: 1
     minWeight: 0
     itemChance: 77
@@ -210,7 +210,7 @@ MonoBehaviour:
     sellPercentage: 0
     itemLuck: 0
     itemDurability: 0
-    itemWeight: 1
+    itemWeight: 1.1332562
     maxWeight: 1.5
     minWeight: 0
     itemChance: 59
@@ -505,7 +505,7 @@ MonoBehaviour:
     itemChance: 23
     rareDegree: 3
     habitat: 1
-    foundTimes: 0
+    foundTimes: 1
   - itemID: 1030
     itemName: "\u5706\u5C3E\u6597\u9C7C "
     itemIcon: {fileID: -1664953180, guid: 8efd9668405ac7448b27330b2f70deb1, type: 3}
@@ -522,4 +522,4 @@ MonoBehaviour:
     itemChance: 21
     rareDegree: 3
     habitat: 1
-    foundTimes: 0
+    foundTimes: 1
