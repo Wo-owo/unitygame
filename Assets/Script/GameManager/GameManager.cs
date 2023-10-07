@@ -76,10 +76,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isBySea=false;
-        locationText.text = isBySea?"海边":"湖边";
-        fishingLevel=1;
+        locationText.text = isRain?"海边":"湖边";
         itemDataList_SO = InventoryManager.Instance.itemDataList_SO;
+        waitfishing.gameObject.SetActive(false);
+        isRain=false;
         //ClassifyFishes();
         //添加未睡觉事件
         TimeManager.Instance.Day_Event.Add("每三天削减一次睡觉时间", () =>
@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
     }
 
     Coroutine MiniGame = null;
+    public TMP_Text waitfishing;//等待钓鱼
     /// <summary>
     /// 点击钓鱼
     /// </summary>
@@ -158,8 +159,17 @@ public class GameManager : MonoBehaviour
     {
         if (MiniGame == null)
         {
-            MiniGame = StartCoroutine(Fishing(1));
+            waitfishing.gameObject.SetActive(true);
+            float _time = (15-additionLuck)/(luckday==Luckday.angel?2f:1f)+(isRain?5:0);
+            StartCoroutine(WaitForFish(_time));
         }
+    }
+    IEnumerator WaitForFish(float _time){
+        yield return new WaitForSeconds(_time);
+        waitfishing.text="鱼上钩了！按 空格 调整鱼钩";
+        MiniGame = StartCoroutine(Fishing(1));
+
+        
     }
 
     /// <summary>
@@ -208,6 +218,7 @@ public class GameManager : MonoBehaviour
             _temp -= 1;
         }
 
+
         // 根据所在地选择鱼池
         //如果在海边
         if (isBySea)
@@ -215,7 +226,7 @@ public class GameManager : MonoBehaviour
             tempFishes = itemDataList_SO.itemDetailsList
                 .Where(fish => (fish.habitat == Habitat.sea || fish.habitat == Habitat.everywhere) && fish.rareDegree <= fishingLevel + _temp)
                 .ToList();
-            
+
         }
         else
         {
@@ -224,11 +235,7 @@ public class GameManager : MonoBehaviour
                 .ToList();
 
         }
-        string debugInfo = "";
-        foreach(var _fish in tempFishes){
-            debugInfo+=_fish.itemName+",";
-        }
-        Debug.Log("抽取鱼:"+debugInfo);
+        Debug.Log("抽取鱼");
 
         int totalWeight = 0;//权重
 
@@ -266,7 +273,6 @@ public class GameManager : MonoBehaviour
             if (a < cumulativeWeight)
             {
                 fish.itemWeight = UnityEngine.Random.Range(fish.minWeight, fish.maxWeight);
-                Debug.Log("钓上了"+fish.itemName);
                 return fish;
             }
         }
@@ -362,6 +368,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("钓鱼完成,钓鱼结果:" + MiniResult.ToString());
             var fish = AddFishes(MiniResult);
+            waitfishing.text = "等待鱼上钩...";
+            waitfishing.gameObject.SetActive(false);
             if (fish != null)
             {
                 InventoryManager.Instance.AddItem(fish.itemID, 1);
